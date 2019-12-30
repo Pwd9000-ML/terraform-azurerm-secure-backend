@@ -21,7 +21,7 @@ After the backend and primary resources have been created the admin can migrate 
 and pass on the details of the "terraform" service principal to a team who will use Terraform to configure their azurerm provider.  
 This provider will only have access to the backend storage container (primary-state) for remote state of infrastructure built in the Primary resource group.  
 The provider will have contributor rights to only the Primary resource group and not the backend resource group.  
-The provider will only have acess to get keys from the backend key vault.  
+The provider will only have access to get keys from the backend key vault.  
   
 ## Module summary (performed by admin)
   
@@ -32,7 +32,7 @@ The provider will only have acess to get keys from the backend key vault.
   - Create container: primary-state, where "terraform" service principal can migrate future projects terraform state.
 - Create the custom role definition  
   - assigned to the primary resource group (terraform-contributor).
-  - assigned to backend storage account container: primary-state.
+  - assigned to backend storage account container: primary-state (Storage Blob Data Contributor).
 - Create "terraform" service principal with the terraform-contributor role assigned to use in the azurerm provider.
 - Create Backend terraform key vault to home created "terraform" Service principal ID and Secret:
   - The service principal CLIENT_ID ("tf-arm-client-id") and CLIENT_SECRET ("tf-arm-client-secret") will be stored in the backend keyvault created.
@@ -45,15 +45,16 @@ State files are kept seperate so that terraform destroy does not destroy the bac
 ## Usage
   
 The initial setup needs to be performed by an admin user who has sufficient permissions to Azure via CLI.  
-Providers required:  
+Providers and terraform version requirements:  
   
-- provider "azuread" {}  
-- provider "azurerm" {}  
+- terraform version >= 0.12.0
+- provider "azuread" >= 0.6.0 
+- provider "azurerm" >= 0.6.0 
   
 Module Input variables:  
   
-- backend_storage_account_name - (Required) Specifies the name of the Backend Storage Account.
-- kv_name - (Required) Specifies the name of the Backend Key Vault.
+- backend_storage_account_name - (Required) Specifies the name of the Backend Storage Account (must be unique, all lowercase).
+- kv_name - (Required) Specifies the name of the Backend Key Vault (must be unique).
 - backend_resource_group_name - (Optional) Specifies the name of the Backend Resource Group.
 - common_tags - (Optional) Optional map of strings to use as tags on resources.
 - environment - (Optional) Specifies the name of the environment (e.g. Development).
@@ -64,7 +65,11 @@ Module Input variables:
   
 Module Outputs:  
 
-- backend_storage_account - The resource ID for the backend storage account.  
+- backend_storage_account_id - The resource ID for the backend storage account.  
 - backend_key_vault_id - The resource ID for the backend key vault.  
 - terraform_application_id - The CLIENT ID for the terraform application service principal.  
 - terraform_custom_role_id - The terraform-contributor role id.  
+
+## Example
+
+An example .tf and .tfvars file can be found under path Examples/backend along with a readme.md.  
