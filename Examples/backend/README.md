@@ -26,6 +26,9 @@ After the backend infrastructure is setup from steps above (1-6):
   - container_name = "backend-remote-state"
   - key = "terraform.tfstate"
 - Run: Terraform init
+- Delete any local .tfstate or .tfstate.backup files as these may contain sensitive information.
+
+The backend state is now migrated to the backend storage account and container for the backend
 
 ## Providers and terraform version requirements
   
