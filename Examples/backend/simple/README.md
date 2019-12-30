@@ -28,7 +28,8 @@ After the backend infrastructure is setup from steps above (1-6):
 - Run: Terraform init
 - Delete any local .tfstate or .tfstate.backup files as these may contain sensitive information.
 
-The backend state is now migrated to the backend storage account and container for the backend
+The backend state is now migrated to the backend storage account and container for the backend.  
+To cleanup the demo run: terraform destroy and delete the .terraform directory. (contains remote backend state config).  
 
 ## Providers and terraform version requirements
   
