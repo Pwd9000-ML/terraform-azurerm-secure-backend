@@ -44,14 +44,15 @@ State files are kept seperate so that terraform destroy does not destroy the bac
   
 ## Usage
   
-The initial setup needs to be performed by an admin user who has sufficient permissions to Azure via CLI.  
-Providers and terraform version requirements:  
+The initial setup needs to be performed by an admin user who has sufficient permissions to Azure via CLI. (See examples readme for more info)  
+  
+## Providers and terraform version requirements
   
 - terraform version >= 0.12.0
-- provider "azuread" >= 0.6.0 
-- provider "azurerm" >= 0.6.0 
+- provider "azuread" >= 0.6.0
+- provider "azurerm" >= 0.6.0
   
-Module Input variables:  
+## Module Input variables
   
 - backend_storage_account_name - (Required) Specifies the name of the Backend Storage Account (must be unique, all lowercase).
 - kv_name - (Required) Specifies the name of the Backend Key Vault (must be unique).
@@ -63,12 +64,17 @@ Module Input variables:
 - primary_resource_group_name - (Optional) Specifies the name of the Primary Resource Group.
 - region - (Optional) Specifies the region of resources (e.g. EMEA).
   
-Module Outputs:  
+## Module Outputs
 
 - backend_storage_account_id - The resource ID for the backend storage account.  
 - backend_key_vault_id - The resource ID for the backend key vault.  
 - terraform_application_id - The CLIENT ID for the terraform application service principal.  
 - terraform_custom_role_id - The terraform-contributor role id.  
+
+## Other requirements
+
+- Azure CLI version >= 2.0.0
+- Powershell version >= 5.1
 
 ## Example
 
