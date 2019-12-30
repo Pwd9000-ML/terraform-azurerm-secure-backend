@@ -50,7 +50,7 @@ The initial setup needs to be performed by an admin user who has sufficient perm
   
 - terraform version >= 0.12.0
 - provider "azuread" >= 0.6.0
-- provider "azurerm" >= 0.6.0
+- provider "azurerm" >= 1.39.0
   
 ## Module Input variables
   

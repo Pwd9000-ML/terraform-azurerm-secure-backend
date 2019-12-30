@@ -36,7 +36,7 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
   
 - terraform version >= 0.12.0
 - provider "azuread" >= 0.6.0
-- provider "azurerm" >= 0.6.0
+- provider "azurerm" >= 1.39.0
   
 ## Module Input variables
   
