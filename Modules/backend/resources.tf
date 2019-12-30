@@ -1,3 +1,11 @@
+terraform {
+  required_version = ">= 0.12.0"
+  required_providers {
+    azurerm = ">= 1.38.0"
+    azuread = ">= 0.6.0"
+  }
+}
+
 ##################################################
 # DATA                                           #
 ##################################################
@@ -131,9 +139,9 @@ resource "azurerm_role_assignment" "primary_rg_ra" {
 }
 
 resource "azurerm_role_assignment" "primary_sa_container_ra" {
-  scope              = "${azurerm_resource_group.backend_rg.id}/providers/Microsoft.Storage/storageAccounts/${azurerm_storage_account.backend_sa.name}/blobServices/default/containers/${azurerm_storage_container.primary_sa_container.name}"
+  scope                = "${azurerm_resource_group.backend_rg.id}/providers/Microsoft.Storage/storageAccounts/${azurerm_storage_account.backend_sa.name}/blobServices/default/containers/${azurerm_storage_container.primary_sa_container.name}"
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id       = azuread_service_principal.terraform_app_sp.id
+  principal_id         = azuread_service_principal.terraform_app_sp.id
 }
 
 resource "azurerm_key_vault_secret" "terraform_client_id" {
