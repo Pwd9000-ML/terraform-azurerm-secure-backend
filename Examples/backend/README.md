@@ -12,7 +12,20 @@ The backend-demo.tf file can be run to create a secure terraform environment bac
 2. amend the .tf file and .tfvars file with desired variables.
 3. Log into azure using CLI "az login".
 4. run: Terraform init ()
-5. run: Terraform 
+5. run: Terraform plan -out .\backend.tfplan
+6. run: Terraform apply .\backend.tfplan
+7. run: Terraform destroy (optional - This will destroy all resources created with step #6)
+
+## Migrating the backend statefile
+
+After the backend infrastructure is setup from steps above (1-6):  
+
+- Uncomment relevant lines from backend-demo.tf and provide values for:
+  - resource_group_name = "" (backend resource group name. This value will also be in "setup.log")
+  - storage_account_name = "" (backend storage account name. This value will also be in "setup.log")
+  - container_name = "backend-remote-state"
+  - key = "terraform.tfstate"
+- Run: Terraform init
 
 ## Providers and terraform version requirements
   

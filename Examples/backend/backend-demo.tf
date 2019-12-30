@@ -5,6 +5,18 @@ provider "azuread" {}
 provider "azurerm" {}
 
 ##################################################
+# BACKEND                                        #
+##################################################
+#terraform {
+#    backend "azurerm" {
+#        resource_group_name = ""
+#        storage_account_name = ""
+#        container_name = "backend-remote-state"
+#        key = "terraform.tfstate"
+#    }
+#}
+
+##################################################
 # VARIABLES                                      #
 ##################################################
 variable "location" {
