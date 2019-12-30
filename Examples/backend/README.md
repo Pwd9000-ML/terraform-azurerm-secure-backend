@@ -9,9 +9,9 @@ The backend-demo.tf file can be run to create a secure terraform environment bac
 ## Usage
 
 1. Clone or copy the two files in this path to a local directory and open a command prompt.
-2. amend the .tf file and .tfvars file with desired variables.
+2. Amend the .tf file and .tfvars file with desired variables.
 3. Log into azure using CLI "az login".
-4. run: Terraform init ()
+4. run: Terraform init
 5. run: Terraform plan -out .\backend.tfplan
 6. run: Terraform apply .\backend.tfplan
 7. run: Terraform destroy (optional - This will destroy all resources created with step #6)
