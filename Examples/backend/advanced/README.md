@@ -1,7 +1,8 @@
-# Terraform Simple Example - Backend
+# Terraform Advanced Example - Backend
 
 ## Description
 
+This example is the same as the simple example, but uses more advanced inputs and logic with the deployment and variables.  
 The following example files can be used to demo the module called backend under path Modules/backend.
 The example contains one terraform file (backend-demo.tf) and .tfvars file (terraform-demo.tfvars)
 The backend-demo.tf file can be run to create a secure terraform environment backend as described in the module readme.
