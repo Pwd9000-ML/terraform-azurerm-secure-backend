@@ -92,7 +92,7 @@ locals {
 # MODULES                                        #
 ##################################################
 module "backend" {
-  source = "..\\..\\Modules\\backend"
+  source = "github.com/Pwd9000-ML/Terraform/Modules/backend"
   providers = {
     azuread = azuread.az_ad_alias1
   }
