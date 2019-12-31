@@ -1,0 +1,202 @@
+terraform {
+  required_version = ">= 0.12.0"
+  required_providers {
+    azurerm = ">= 1.38.0"
+    azuread = ">= 0.6.0"
+  }
+}
+
+##################################################
+# DATA                                           #
+##################################################
+data "azurerm_subscription" "current" {}
+data "azurerm_client_config" "current" {}
+
+##################################################
+# RESOURCES                                      #
+##################################################
+resource "random_password" "terraform" {
+  length  = 16
+  special = true
+}
+
+resource "azurerm_resource_group" "backend_rg" {
+  name     = var.backend_resource_group_name
+  location = var.location
+  tags = {
+    LineOfBusiness = var.lob
+    region         = var.region
+    Purpose        = "Terraform-Backend-Resource-Group-${var.lob}"
+  }
+}
+
+resource "azurerm_resource_group" "primary_rg" {
+  name     = var.primary_resource_group_name
+  location = var.location
+  tags = {
+    LineOfBusiness = var.lob
+    region         = var.region
+    Purpose        = "Terraform-Primary-Resource-Group-${var.lob}"
+  }
+}
+
+resource "azurerm_storage_account" "backend_sa" {
+  name                      = var.backend_storage_account_name
+  resource_group_name       = azurerm_resource_group.backend_rg.name
+  location                  = azurerm_resource_group.backend_rg.location
+  access_tier               = "Hot"
+  account_tier              = "Standard"
+  account_kind              = "StorageV2"
+  account_replication_type  = "LRS"
+  enable_https_traffic_only = true
+  enable_blob_encryption    = true
+  tags                      = merge(var.common_tags, { Purpose = "Backend-State-Storage-${var.lob}-${var.environment}" })
+}
+
+resource "azurerm_storage_container" "backend_sa_container" {
+  name                 = "backend-remote-state"
+  storage_account_name = azurerm_storage_account.backend_sa.name
+}
+
+resource "azurerm_storage_container" "primary_sa_container" {
+  name                 = "primary-remote-state"
+  storage_account_name = azurerm_storage_account.backend_sa.name
+}
+
+resource "azurerm_key_vault" "backend_kv" {
+  name                            = var.kv_name
+  location                        = azurerm_resource_group.backend_rg.location
+  resource_group_name             = azurerm_resource_group.backend_rg.name
+  tenant_id                       = data.azurerm_subscription.current.tenant_id
+  enabled_for_disk_encryption     = true
+  enabled_for_template_deployment = true
+  enabled_for_deployment          = true
+  sku_name                        = "standard"
+  tags                            = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.lob}-${var.environment}" })
+
+  access_policy {
+    tenant_id       = data.azurerm_subscription.current.tenant_id
+    object_id       = azuread_service_principal.terraform_app_sp.id
+    key_permissions = []
+    secret_permissions = [
+      "get",
+      "list",
+    ]
+    certificate_permissions = []
+    storage_permissions     = []
+  }
+
+  access_policy {
+    tenant_id       = data.azurerm_subscription.current.tenant_id
+    object_id       = data.azurerm_client_config.current.object_id
+    key_permissions = []
+    secret_permissions = [
+      "backup",
+      "delete",
+      "purge",
+      "recover",
+      "restore",
+      "set",
+      "get",
+      "list",
+    ]
+    certificate_permissions = []
+    storage_permissions     = []
+  }
+}
+
+resource "azuread_application" "terraform_app" {
+  name = "terraform"
+}
+
+resource "azuread_service_principal" "terraform_app_sp" {
+  application_id = azuread_application.terraform_app.application_id
+}
+
+resource "azuread_service_principal_password" "terraform_app_sp_pwd" {
+  service_principal_id = azuread_service_principal.terraform_app_sp.id
+  value                = random_password.terraform.result
+  end_date_relative    = "17520h"
+}
+
+resource "azurerm_role_definition" "terraform_role" {
+  name        = "terraform-contributor"
+  scope       = data.azurerm_subscription.current.id
+  description = "Allow terraform SP to manage everything except security access and Blueprint actions."
+  permissions {
+    actions     = ["*"]
+    not_actions = ["Microsoft.Authorization/*/Delete", "Microsoft.Authorization/*/Write", "Microsoft.Authorization/elevateAccess/Action", "Microsoft.Blueprint/*/write", "Microsoft.Blueprint/*/delete"]
+  }
+  assignable_scopes = [
+    data.azurerm_subscription.current.id,
+  ]
+}
+
+resource "azurerm_role_assignment" "primary_rg_ra" {
+  scope              = azurerm_resource_group.primary_rg.id
+  role_definition_id = azurerm_role_definition.terraform_role.id
+  principal_id       = azuread_service_principal.terraform_app_sp.id
+}
+
+resource "azurerm_role_assignment" "primary_sa_container_ra" {
+  scope                = "${azurerm_resource_group.backend_rg.id}/providers/Microsoft.Storage/storageAccounts/${azurerm_storage_account.backend_sa.name}/blobServices/default/containers/${azurerm_storage_container.primary_sa_container.name}"
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azuread_service_principal.terraform_app_sp.id
+}
+
+resource "azurerm_key_vault_secret" "terraform_client_id" {
+  name         = "tf-arm-client-id"
+  value        = azuread_application.terraform_app.id
+  key_vault_id = azurerm_key_vault.backend_kv.id
+  tags         = merge(var.common_tags, { Purpose = "Terraform-Service-Principal-Application-ID" })
+}
+
+resource "azurerm_key_vault_secret" "terraform_client_secret" {
+  name         = "tf-arm-client-secret"
+  value        = azuread_service_principal_password.terraform_app_sp_pwd.value
+  key_vault_id = azurerm_key_vault.backend_kv.id
+  tags         = merge(var.common_tags, { Purpose = "Terraform-Service-Principal-Application-Secret" })
+}
+
+resource "null_resource" "setup-log" {
+  depends_on = [null_resource.enable-soft-delete]
+  provisioner "local-exec" {
+    command     = <<EOT
+$user = az account show | ConvertFrom-Json
+$username = $user.user.name
+$subscription = $user.name
+$subscriptionID = $user.id
+$date = get-date
+Add-content -value 'Initial setup performed by:' -Path "setup.log"
+Add-content -value "Date: $date" -Path "setup.log"
+Add-content -value "User: $username" -Path "setup.log"
+Add-content -value "Subscription: $subscription" -Path "setup.log"
+Add-content -value "SubscriptionID: $subscriptionID" -Path "setup.log"
+Add-content -value '' -Path "setup.log"
+Add-content -value 'Setup Information:' -Path "setup.log"
+Add-content -value 'Backend Resource Group Name = "${azurerm_resource_group.backend_rg.name}"' -Path "setup.log"
+Add-content -value 'Backend Storage Account Name = "${azurerm_storage_account.backend_sa.name}"' -Path "setup.log"
+Add-content -value 'Backend Remote State Container Name = "${azurerm_storage_container.backend_sa_container.name}"' -Path "setup.log"
+Add-content -value 'Primary Remote State Container Name = "${azurerm_storage_container.primary_sa_container.name}"' -Path "setup.log"
+Add-content -value 'Backend Key Vault Name = "${azurerm_key_vault.backend_kv.name}"' -Path "setup.log"
+Add-content -value 'Backend Key Vault ID = "${azurerm_key_vault.backend_kv.id}"' -Path "setup.log"
+Add-content -value 'Primary Resource Group Name = "${azurerm_resource_group.primary_rg.name}"' -Path "setup.log"
+Add-content -value 'Terraform Service Principal Application ID = "${azuread_application.terraform_app.application_id}"' -Path "setup.log"
+Add-content -value 'Terraform Service Principal Object ID = "${azuread_application.terraform_app.id}"' -Path "setup.log"
+Add-content -value 'Terraform Contributor Role Definition = "${azurerm_role_definition.terraform_role.name}"' -Path "setup.log"
+Add-content -value 'Terraform app and role assigned to: "${azurerm_resource_group.primary_rg.name}"' -Path "setup.log"
+Add-content -value 'Terraform app ID secret: "${azurerm_key_vault_secret.terraform_client_secret.name}" can be obtained from kv: "${azurerm_key_vault.backend_kv.name}"' -Path "setup.log"
+EOT
+    interpreter = ["Powershell", "-Command"]
+  }
+}
+
+#Helpers.
+#To enable soft delete on backend keyvault change property enableSoftDelete=true
+resource "null_resource" "enable-soft-delete" {
+  depends_on = [azurerm_key_vault.backend_kv]
+
+  provisioner "local-exec" {
+    command = "az resource update --id ${azurerm_key_vault.backend_kv.id} --set properties.enableSoftDelete=false"
+  }
+}
