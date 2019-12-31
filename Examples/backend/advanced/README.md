@@ -3,25 +3,32 @@
 ## Description
 
 This example is the same as the simple example, but uses more advanced inputs and logic with the deployment and variables.  
-The following example files can be used to demo the module called backend under path Modules/backend.
-The example contains one terraform file (backend-demo.tf) and .tfvars file (terraform-demo.tfvars)
-The backend-demo.tf file can be run to create a secure terraform environment backend as described in the module readme.
+The following example files can be used to demo the module called backend under path Modules/backend.  
+The example contains:  
+
+- main terraform file (main.tf)
+- backend terraform file (backend.tf)
+- .tfvars file (terraform.tfvars)  
+
+The main.tf and terraform.tfvars files can be amended to create a secure terraform environment backend as described in the module readme.  
+Amend terraform.tfvars with relevant SubscriptionID and TenantID that will be used with the azuread and azurerm provider.  
+Amend backend.tf to migrate state to remote state.  
 
 ## Usage
 
-1. Clone or copy the two files in this path to a local directory and open a command prompt.
-2. Amend the .tf file and .tfvars file with desired variables.
-3. Log into azure using CLI "az login".
-4. run: Terraform init
-5. run: Terraform plan -out .\backend.tfplan
-6. run: Terraform apply .\backend.tfplan
-7. run: Terraform destroy (optional - This will destroy all resources created with step #6)
+1. Clone or copy the files in this path to a local directory and open a command prompt.  
+2. Amend the main.tf file and terraform.tfvars file with desired variables.  
+3. Log into azure using CLI "az login".  
+4. run: Terraform init  
+5. run: Terraform plan -out .\backend.tfplan  
+6. run: Terraform apply .\backend.tfplan  
+7. run: Terraform destroy (optional - This will destroy all resources created with step #6)  
 
 ## Migrating the backend statefile
 
 After the backend infrastructure is setup from steps above (1-6):  
 
-- Uncomment relevant lines from backend-demo.tf and provide values for:
+- Uncomment relevant lines from backend.tf and provide values for:
   - resource_group_name = "" (backend resource group name. This value will also be in "setup.log")
   - storage_account_name = "" (backend storage account name. This value will also be in "setup.log")
   - container_name = "backend-remote-state"

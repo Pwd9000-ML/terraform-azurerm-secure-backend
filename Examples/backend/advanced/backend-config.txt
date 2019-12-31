@@ -1,0 +1,5 @@
+resource_group_name = "check setup.log"
+storage_account_name = "check setup.log"
+container_name = "backend-remote-state"
+key = "terraform.tfstate"
+#sas_token = "optional method - not secure"

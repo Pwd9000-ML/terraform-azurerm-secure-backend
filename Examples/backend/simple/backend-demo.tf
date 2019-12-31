@@ -9,10 +9,10 @@ provider "azurerm" {}
 ##################################################
 #terraform {
 #    backend "azurerm" {
-#        resource_group_name = ""
-#        storage_account_name = ""
-#        container_name = "backend-remote-state"
-#        key = "terraform.tfstate"
+#        resource_group_name  = "BackendRG"
+#        storage_account_name = "backendsaname0001"
+#        container_name       = "backend-remote-state"
+#        key                  = "terraform.tfstate"
 #    }
 #}
 
@@ -37,8 +37,8 @@ variable "region" {
 # LOCALS                                         #
 ##################################################
 locals {
-  backendStorageName  = "tfstate${lower(var.region[var.location])}0001"
-  backendkeyvaultName = "tfkv${lower(var.region[var.location])}0001"
+  backendStorageName  = "tfstate${lower(var.region[var.location])}${random_integer.sa_num.result}"
+  backendkeyvaultName = "tfkv${lower(var.region[var.location])}${random_integer.sa_num.result}"
 
   # Validation: 
   # This section validates input for location of available locations
@@ -55,9 +55,17 @@ locals {
 # MODULES                                        #
 ##################################################
 module "backend" {
-  source = "github.com/Pwd9000-ML/Terraform/Modules/backend"
-  backend_storage_account_name = local.backendStorageName 
-  kv_name = local.backendkeyvaultName 
-  location = var.location 
-  region = var.region[var.location] 
+  source                       = "github.com/Pwd9000-ML/Terraform/Modules/backend"
+  backend_storage_account_name = local.backendStorageName
+  kv_name                      = local.backendkeyvaultName
+  location                     = var.location
+  region                       = var.region[var.location]
+}
+
+##################################################
+# RESOURCES                                      #
+##################################################
+resource "random_integer" "sa_num" {
+  min = 0001
+  max = 9999
 }
