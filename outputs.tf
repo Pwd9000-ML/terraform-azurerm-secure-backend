@@ -1,6 +1,16 @@
 ##################################################
 # OUTPUTS                                        #
 ##################################################
+output "backend_resource_group_id" {
+  value       = azurerm_resource_group.backend_rg.id
+  description = "The resource ID for the backend resource group."
+}
+
+output "primary_resource_group_id" {
+  value       = azurerm_resource_group.primary_rg.id
+  description = "The resource ID for the primary resource group."
+}
+
 output "backend_storage_account_id" {
   value       = azurerm_storage_account.backend_sa.id
   description = "The resource ID for the backend storage account."

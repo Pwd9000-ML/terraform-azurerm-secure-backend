@@ -44,12 +44,13 @@ resource "azurerm_storage_account" "backend_sa" {
   name                      = var.backend_storage_account_name
   resource_group_name       = azurerm_resource_group.backend_rg.name
   location                  = azurerm_resource_group.backend_rg.location
-  access_tier               = "Hot"
-  account_tier              = "Standard"
-  account_kind              = "StorageV2"
-  account_replication_type  = "LRS"
-  enable_https_traffic_only = true
-  enable_blob_encryption    = true
+  access_tier               = var.backend_sa_access_tier
+  account_kind              = var.backend_sa_account_kind
+  account_tier              = var.backend_sa_account_tier
+  account_replication_type  = var.backend_sa_account_repl
+  enable_https_traffic_only = var.backend_sa_account_https
+  enable_blob_encryption    = var.backend_sa_account_blob_encrypt
+  enable_file_encryption    = var.backend_sa_account_file_encrypt
   tags                      = merge(var.common_tags, { Purpose = "Backend-State-Storage-${var.lob}-${var.environment}" })
 }
 
