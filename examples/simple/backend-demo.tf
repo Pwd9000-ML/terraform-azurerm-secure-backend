@@ -55,7 +55,7 @@ locals {
 # MODULES                                        #
 ##################################################
 module "backend" {
-  source                       = "github.com/Pwd9000-ML/Terraform/Modules/backend"
+  source                       = "github.com/Pwd9000-ML/terraform-azurerm-secure-backend"
   backend_storage_account_name = local.backendStorageName
   kv_name                      = local.backendkeyvaultName
   location                     = var.location
