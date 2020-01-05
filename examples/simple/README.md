@@ -51,10 +51,8 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 - backend_sa_account_file_encrypt - (Optional) Boolean flag which controls if Encryption Services are enabled for File storage. (accepted values: true, false)
 - common_tags - (Optional) Optional map of strings to use as tags on resources.
 - environment - (Optional) Specifies the name of the environment (e.g. Development).
-- lob - (Optional) Specifies the Line Of Business (e.g. IT).
 - location - (Optional) Specifies the location of resources (e.g. westeurope).
 - primary_resource_group_name - (Optional) Specifies the name of the Primary Resource Group.
-- region - (Optional) Specifies the region of resources (e.g. EMEA).
   
 ## Module Outputs
 

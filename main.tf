@@ -23,21 +23,13 @@ resource "random_password" "terraform" {
 resource "azurerm_resource_group" "backend_rg" {
   name     = var.backend_resource_group_name
   location = var.location
-  tags = {
-    LineOfBusiness = var.lob
-    region         = var.region
-    Purpose        = "Terraform-Backend-Resource-Group-${var.lob}"
-  }
+  tags     = merge(var.common_tags, { Purpose = "Terraform-Backend-Resource-Group-${var.environment}" })
 }
 
 resource "azurerm_resource_group" "primary_rg" {
   name     = var.primary_resource_group_name
   location = var.location
-  tags = {
-    LineOfBusiness = var.lob
-    region         = var.region
-    Purpose        = "Terraform-Primary-Resource-Group-${var.lob}"
-  }
+  tags     = merge(var.common_tags, { Purpose = "Terraform-Primary-Resource-Group-${var.environment}" })
 }
 
 resource "azurerm_storage_account" "backend_sa" {
@@ -51,7 +43,7 @@ resource "azurerm_storage_account" "backend_sa" {
   enable_https_traffic_only = var.backend_sa_account_https
   enable_blob_encryption    = var.backend_sa_account_blob_encrypt
   enable_file_encryption    = var.backend_sa_account_file_encrypt
-  tags                      = merge(var.common_tags, { Purpose = "Backend-State-Storage-${var.lob}-${var.environment}" })
+  tags                      = merge(var.common_tags, { Purpose = "Backend-State-Storage-${var.environment}" })
 }
 
 resource "azurerm_storage_container" "backend_sa_container" {
@@ -73,7 +65,7 @@ resource "azurerm_key_vault" "backend_kv" {
   enabled_for_template_deployment = true
   enabled_for_deployment          = true
   sku_name                        = "standard"
-  tags                            = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.lob}-${var.environment}" })
+  tags                            = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.environment}" })
 
   access_policy {
     tenant_id       = data.azurerm_subscription.current.tenant_id

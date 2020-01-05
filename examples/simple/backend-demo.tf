@@ -59,7 +59,6 @@ module "backend" {
   backend_storage_account_name = local.backendStorageName
   kv_name                      = local.backendkeyvaultName
   location                     = var.location
-  region                       = var.region[var.location]
 }
 
 ##################################################

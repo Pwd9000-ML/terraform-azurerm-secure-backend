@@ -101,10 +101,8 @@ module "backend" {
   common_tags                  = local.common_tags
   environment                  = var.environment
   kv_name                      = local.backendkeyvaultName
-  lob                          = var.lob
   location                     = var.location
   primary_resource_group_name  = local.primaryResourceGroupName
-  region                       = var.region[var.location]
 }
 
 ##################################################
