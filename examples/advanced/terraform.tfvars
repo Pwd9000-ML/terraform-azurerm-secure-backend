@@ -4,7 +4,7 @@ environment = "Testing"
 #e.g. IT, Development, Research
 lob = "Development"
 
-#e.g. westeurope, centralus, eastasia
+#e.g. westeurope, centralus, eastasia (input validated)
 location = "westeurope"
 
 #Global prefix
