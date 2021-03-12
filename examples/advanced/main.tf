@@ -112,6 +112,7 @@ module "backend" {
   source = "github.com/Pwd9000-ML/terraform-azurerm-secure-backend"
   providers = {
     azuread = azuread.az_ad_alias1
+    azurerm = azurerm.az_rm_alias1
   }
   backend_resource_group_name  = local.backendResourceGroupName
   backend_storage_account_name = local.backendStorageName
