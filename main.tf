@@ -143,7 +143,6 @@ resource "azurerm_key_vault_secret" "terraform_client_secret" {
 }
 
 resource "null_resource" "setup-log" {
-  depends_on = [null_resource.enable-soft-delete]
   provisioner "local-exec" {
     command     = <<EOT
 $user = az account show | ConvertFrom-Json
