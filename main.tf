@@ -33,8 +33,7 @@ resource "azurerm_storage_account" "backend_sa" {
   account_tier              = var.backend_sa_account_tier
   account_replication_type  = var.backend_sa_account_repl
   enable_https_traffic_only = var.backend_sa_account_https
-  enable_blob_encryption    = var.backend_sa_account_blob_encrypt
-  enable_file_encryption    = var.backend_sa_account_file_encrypt
+  min_tls_version           = "TLS1_2"
   tags                      = merge(var.common_tags, { Purpose = "Backend-State-Storage-${var.environment}" })
 }
 

@@ -42,18 +42,6 @@ variable "backend_sa_account_https" {
   description = "Optional Input - Boolean flag which forces HTTPS if enabled. (accepted values: true, false)"
 }
 
-variable "backend_sa_account_blob_encrypt" {
-  type        = bool
-  default     = true
-  description = "Optional Input - Boolean flag which controls if Encryption Services are enabled for Blob storage. (accepted values: true, false)"
-}
-
-variable "backend_sa_account_file_encrypt" {
-  type        = bool
-  default     = true
-  description = "Optional Input - Boolean flag which controls if Encryption Services are enabled for File storage. (accepted values: true, false)"
-}
-
 variable "common_tags" {
   type = map(string)
   default = {
