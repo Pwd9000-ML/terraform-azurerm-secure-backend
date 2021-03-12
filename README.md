@@ -45,7 +45,7 @@ The initial setup needs to be performed by an admin user who has sufficient perm
 ## Providers and terraform version requirements
   
 - terraform version >= 0.14.0
-- provider "azuread" >= 1.0.0
+- provider "azuread" >= 1.1.1
 - provider "azurerm" >= 2.41.0
   
 ## Module Input variables
