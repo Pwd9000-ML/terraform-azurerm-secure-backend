@@ -3,13 +3,11 @@
 ## Description
 
 This module can be used to provision a `primary terraform resource group` and a `backend terraform resource group`.  
-The primary resource group will be assigned with a service principal that is linked with a custom rbac role: `terraform-contributor`.  
-The Primary resource group can then be utilised with the azurerm provider by a team using the provided service principal to build future projects or solutions within the `Primary resource group`.  
+The primary resource group will be assigned with a service principal that is linked with a custom rbac role: `terraform-contributor`. The Primary resource group can then be utilised with the azurerm provider by a team using the provided service principal to build future projects or solutions within the `Primary resource group`.  
   
-The `backend resource group` will not be associated with the "terraform" service principal.  
+The `backend resource group` will not be associated with thenew ly created `terraform` service principal provided by this module.  
 The `backend resource group` will contain a backend storage account and two containers named: `backend-state` and `primary-state` for storing remote states.  
-Containers are kept seperated to keep the `backend state` seperate from the `primary state` as the primary state will be utilised by another team or someone else using the provided Service Principal.  
-The provided "terraform" service principal will only have access to the backend storage account container `primary-state` to access the remote state of future projects.  
+Containers are kept seperated to keep the `backend state` seperate from the `primary state` as the primary state will be utilised by another team or someone else using the provided Service Principal. The provided `terraform` service principal will only have access to the backend storage account container `primary-state` to access the remote state of future deployments by the remote teams terraform deployments.  
   
 The `backend resource group` will also contain a `backend key vault` where the "terraform" service principal ID and secret will be stored as secrets.  
 The "terraform" service principal will also only have access to get and list keys in the backend key vault.  
