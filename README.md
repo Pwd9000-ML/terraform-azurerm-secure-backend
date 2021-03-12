@@ -48,9 +48,9 @@ The initial setup needs to be performed by an admin user who has sufficient perm
   
 ## Providers and terraform version requirements
   
-- terraform version >= 0.12.0
-- provider "azuread" >= 0.6.0
-- provider "azurerm" >= 1.39.0
+- terraform version >= 0.14.0
+- provider "azuread" >= 1.0.0
+- provider "azurerm" >= 2.41.0
   
 ## Module Input variables
   
@@ -62,8 +62,6 @@ The initial setup needs to be performed by an admin user who has sufficient perm
 - backend_sa_account_tier - (Optional) Defines the Tier to use for this storage account. (accepted values: Standard, Premium. For FileStorage accounts only Premium is valid.)
 - backend_sa_account_repl - (Optional) Defines the type of replication to use for this storage account. (accepted values: LRS, GRS, RAGRS, ZRS)
 - backend_sa_account_https - (Optional) Boolean flag which forces HTTPS if enabled. (accepted values: true, false)
-- backend_sa_account_blob_encrypt - (Optional) Boolean flag which controls if Encryption Services are enabled for Blob storage. (accepted values: true, false)
-- backend_sa_account_file_encrypt - (Optional) Boolean flag which controls if Encryption Services are enabled for File storage. (accepted values: true, false)
 - common_tags - (Optional) Optional map of strings to use as tags on resources.
 - environment - (Optional) Specifies the name of the environment (e.g. Development).
 - location - (Optional) Specifies the location of resources (e.g. westeurope).

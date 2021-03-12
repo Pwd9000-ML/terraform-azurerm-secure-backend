@@ -174,13 +174,3 @@ EOT
     interpreter = ["Powershell", "-Command"]
   }
 }
-
-#Helpers.
-#To enable soft delete on backend keyvault change property enableSoftDelete=true
-resource "null_resource" "enable-soft-delete" {
-  depends_on = [azurerm_key_vault.backend_kv]
-
-  provisioner "local-exec" {
-    command = "az resource update --id ${azurerm_key_vault.backend_kv.id} --set properties.enableSoftDelete=false"
-  }
-}

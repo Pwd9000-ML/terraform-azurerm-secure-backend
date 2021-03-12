@@ -20,7 +20,7 @@ variable "backend_sa_access_tier" {
 
 variable "backend_sa_account_kind" {
   type        = string
-  default     = "StorageV2"
+  default     = "BlobStorage"
   description = "Optional Input - Defines the Kind of account. (accepted values: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2)"
 }
 
