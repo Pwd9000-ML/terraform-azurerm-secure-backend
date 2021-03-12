@@ -10,12 +10,11 @@ The `backend resource group` will contain a backend storage account and two cont
 Storage containers are kept seperated to keep the `backend state` seperate from the `primary state` as the `primary state` will be utilised by the remote team using the principal created by this module. The provided `terraform` service principal will only have access to the backend storage account container `primary-state` to access the remote state of future deployments by the remote teams terraform deployments.  
   
 The `backend resource group` will also contain a `backend key vault` where the `terraform` service principal ID and secret will be stored as secrets that can be given to the remote team to configure their provider with.  
-The "terraform" service principal will also only have access to get and list keys in the backend key vault.  
-The admin user who sets up the environment using this module will have full access to the backend key vault and can distribute the details to a team.  
+The `terraform` service principal will also only have access to get and list keys from the `backend key vault`.  
+The admin user who sets up the environment using this module will have full access to the backend key vault and can distribute the details to the remote team.  
   
-This backend module should be created by a priviliged admin user who has sufficient access to the subscription.  
-After the backend and primary resources have been created the admin can migrate the backend state to the provided storage account container (backend-state)  
-and pass on the details of the "terraform" service principal to a team who will use Terraform to configure their azurerm provider.  
+This `secure backend module` should be created by a priviliged admin user who has sufficient access to the subscription.  
+After the backend and primary resources have been created the admin can migrate the backend state to the provided storage account container if required and pass on the details of the `terraform` service principal to a team who will use Terraform to configure their azurerm provider to start using the `primary resource group` for their deployments.  
 The teams azurerm provider they configure with the provided service principal, will only have access to the backend storage container `primary-state` to store state files for deployments made in the `primary resource group`.  
 The provided service principal will have `contributor` rights to only the `Primary resource group` and not the backend resource group.  
 The provided service principal will also only have access to get and list keys from the `backend key vault`.  
