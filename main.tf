@@ -117,14 +117,13 @@ resource "azurerm_role_definition" "terraform_role" {
 }
 
 resource "azurerm_role_assignment" "primary_rg_ra" {
-  depends_on         = [azuread_service_principal.terraform_app_sp]
   scope              = azurerm_resource_group.primary_rg.id
-  role_definition_id = azurerm_role_definition.terraform_role.id
+  #role_definition_id = azurerm_role_definition.terraform_role.id <Broken GH ticket>
+  role_definition_name = azurerm_role_definition.terraform_role.name # temp work around
   principal_id       = azuread_service_principal.terraform_app_sp.id
 }
 
 resource "azurerm_role_assignment" "primary_sa_container_ra" {
-  depends_on           = [azuread_service_principal.terraform_app_sp]
   scope                = "${azurerm_resource_group.backend_rg.id}/providers/Microsoft.Storage/storageAccounts/${azurerm_storage_account.backend_sa.name}/blobServices/default/containers/${azurerm_storage_container.primary_sa_container.name}"
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azuread_service_principal.terraform_app_sp.id
@@ -145,7 +144,6 @@ resource "azurerm_key_vault_secret" "terraform_client_secret" {
 }
 
 resource "null_resource" "setup-log" {
-  depends_on         = [azurerm_key_vault.backend_kv]
   provisioner "local-exec" {
     command     = <<EOT
 $user = az account show | ConvertFrom-Json
