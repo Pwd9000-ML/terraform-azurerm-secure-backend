@@ -12,9 +12,16 @@ The backend-demo.tf file can be run to create a secure terraform environment bac
 2. Amend the .tf file and .tfvars file with desired variables.
 3. Log into azure using CLI "az login".
 4. run: Terraform init
-5. run: Terraform plan -out .\backend.tfplan
-6. run: Terraform apply .\backend.tfplan
-7. run: Terraform destroy (optional - This will destroy all resources created with step #6)
+5. BUILD:
+---
+terraform init
+terraform plan -out deploy.tfplan
+terraform apply deploy.tfplan
+
+6. DESTROY:
+---
+terraform plan -destroy -out destroy.tfplan
+terraform apply destroy.tfplan
 
 ## Migrating the backend statefile
 
@@ -33,9 +40,9 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 
 ## Providers and terraform version requirements
   
-- terraform version >= 0.12.0
-- provider "azuread" >= 0.6.0
-- provider "azurerm" >= 1.39.0
+- terraform version >= 0.14.0
+- provider "azuread" >= 1.0.0
+- provider "azurerm" >= 2.41.0
   
 ## Module Input variables
   
