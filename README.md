@@ -7,9 +7,9 @@ The primary resource group will be assigned with a service principal that is lin
   
 The `backend resource group` will not be associated with the newly created `terraform` service principal provided by this module.  
 The `backend resource group` will contain a backend storage account and two containers named: `backend-state` and `primary-state` for storing remote states.  
-Containers are kept seperated to keep the `backend state` seperate from the `primary state` as the primary state will be utilised by another team or someone else using the provided Service Principal. The provided `terraform` service principal will only have access to the backend storage account container `primary-state` to access the remote state of future deployments by the remote teams terraform deployments.  
+Storage containers are kept seperated to keep the `backend state` seperate from the `primary state` as the `primary state` will be utilised by the remote team using the principal created by this module. The provided `terraform` service principal will only have access to the backend storage account container `primary-state` to access the remote state of future deployments by the remote teams terraform deployments.  
   
-The `backend resource group` will also contain a `backend key vault` where the "terraform" service principal ID and secret will be stored as secrets.  
+The `backend resource group` will also contain a `backend key vault` where the `terraform` service principal ID and secret will be stored as secrets that can be given to the remote team to configure their provider with.  
 The "terraform" service principal will also only have access to get and list keys in the backend key vault.  
 The admin user who sets up the environment using this module will have full access to the backend key vault and can distribute the details to a team.  
   
@@ -75,7 +75,7 @@ The initial setup needs to be performed by an admin user who has sufficient perm
 
 ## Other requirements
 
-- Azure CLI version >= 2.0.0
+- Azure CLI version >= 2.20.0
 - Powershell version >= 5.1
 
 ## Example
