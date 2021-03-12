@@ -7,6 +7,7 @@ provider "azuread" {
 }
 
 provider "azurerm" {
+  features {}
   alias           = "az_rm_alias1"
   subscription_id = var.subscriptionid
 }

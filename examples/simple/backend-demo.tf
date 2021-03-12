@@ -1,8 +1,11 @@
 ##################################################
 # PROVIDERS                                      #
 ##################################################
-provider "azuread" {}
-provider "azurerm" {}
+provider "azuread" {
+}
+provider "azurerm" {
+  features {}
+}
 
 ##################################################
 # BACKEND                                        #
