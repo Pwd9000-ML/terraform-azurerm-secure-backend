@@ -50,27 +50,27 @@ The initial setup needs to be performed by an admin user who has sufficient perm
   
 ## Module Input variables
   
-- backend_storage_account_name - (Required) Specifies the name of the Backend Storage Account (must be unique, all lowercase).
-- kv_name - (Required) Specifies the name of the Backend Key Vault (must be unique).
-- backend_resource_group_name - (Optional) Specifies the name of the Backend Resource Group.
-- backend_sa_access_tier - (Optional) The access tier of the backend storage account. (accepted values: Cool, Hot)
-- backend_sa_account_kind - (Optional) Defines the Kind of account. (accepted values: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2)
-- backend_sa_account_tier - (Optional) Defines the Tier to use for this storage account. (accepted values: Standard, Premium. For FileStorage accounts only Premium is valid.)
-- backend_sa_account_repl - (Optional) Defines the type of replication to use for this storage account. (accepted values: LRS, GRS, RAGRS, ZRS)
-- backend_sa_account_https - (Optional) Boolean flag which forces HTTPS if enabled. (accepted values: true, false)
-- common_tags - (Optional) Optional map of strings to use as tags on resources.
-- environment - (Optional) Specifies the name of the environment (e.g. Development).
-- location - (Optional) Specifies the location of resources (e.g. westeurope).
-- primary_resource_group_name - (Optional) Specifies the name of the Primary Resource Group.
+- `backend_storage_account_name` - (Required) Specifies the name of the Backend Storage Account (must be unique, all lowercase).
+- `kv_name` - (Required) Specifies the name of the Backend Key Vault (must be unique).
+- `backend_resource_group_name` - (Optional) Specifies the name of the Backend Resource Group.
+- `backend_sa_access_tier` - (Optional) The access tier of the backend storage account. (accepted values: Cool, Hot)
+- `backend_sa_account_kind` - (Optional) Defines the Kind of account. (accepted values: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2)
+- `backend_sa_account_tier` - (Optional) Defines the Tier to use for this storage account. (accepted values: Standard, Premium. For FileStorage accounts only Premium is valid.)
+- `backend_sa_account_repl` - (Optional) Defines the type of replication to use for this storage account. (accepted values: LRS, GRS, RAGRS, ZRS)
+- `backend_sa_account_https` - (Optional) Boolean flag which forces HTTPS if enabled. (accepted values: true, false)
+- `common_tags` - (Optional) Optional map of strings to use as tags on resources.
+- `environment` - (Optional) Specifies the name of the environment (e.g. Development).
+- `location` - (Optional) Specifies the location of resources (e.g. westeurope).
+- `primary_resource_group_name` - (Optional) Specifies the name of the Primary Resource Group.
   
 ## Module Outputs
 
-- backend_resource_group_id - The resource ID for the backend resource group.
-- primary_resource_group_id -  The resource ID for the primary resource group.
-- backend_storage_account_id - The resource ID for the backend storage account.
-- backend_key_vault_id - The resource ID for the backend key vault.
-- terraform_application_id - The CLIENT ID for the terraform application service principal.
-- terraform_custom_role_id - The terraform-contributor role id.
+- `backend_resource_group_id` - The resource ID for the backend resource group.
+- `primary_resource_group_id` -  The resource ID for the primary resource group.
+- `backend_storage_account_id` - The resource ID for the backend storage account.
+- `backend_key_vault_id` - The resource ID for the backend key vault.
+- `terraform_application_id` - The CLIENT ID for the terraform application service principal.
+- `terraform_custom_role_id` - The terraform-contributor role id.
 
 ## Other requirements
 
