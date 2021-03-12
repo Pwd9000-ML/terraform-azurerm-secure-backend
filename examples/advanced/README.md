@@ -78,5 +78,6 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 
 ## Other requirements
 
-- Azure CLI version >= 2.0.0
+- Azure CLI version >= 2.20.0
 - Powershell version >= 5.1
+
