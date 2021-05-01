@@ -7,13 +7,13 @@ The primary resource group will be assigned with a service principal that is lin
   
 The `backend resource group` will not be associated with the newly created `terraform` service principal provided by this module.  
 The `backend resource group` will contain a backend storage account and two containers named: `backend-state` and `primary-state` for storing remote states.  
-Storage containers are kept seperated to keep the `backend state` seperate from the `primary state` as the `primary state` will be utilised by the remote team using the principal created by this module. The provided `terraform` service principal will only have access to the backend storage account container `primary-state` to access the remote state of future deployments by the remote teams terraform deployments.  
+Storage containers are kept separated to keep the `backend state` separate from the `primary state` as the `primary state` will be utilised by the remote team using the principal created by this module. The provided `terraform` service principal will only have access to the backend storage account container `primary-state` to access the remote state of future deployments by the remote teams terraform deployments.  
   
 The `backend resource group` will also contain a `backend key vault` where the `terraform` service principal ID and secret will be stored as secrets that can be given to the remote team to configure their provider with.  
 The `terraform` service principal will also only have access to get and list keys from the `backend key vault`.  
 The admin user who sets up the environment using this module will have full access to the backend key vault and can distribute the details to the remote team.  
   
-This `secure backend module` should be created by a priviliged admin user who has sufficient access to the subscription.  
+This `secure backend module` should be created by a privileged admin user who has sufficient access to the subscription.  
 After the backend and primary resources have been created the admin can migrate the backend state to the provided storage account container if required and pass on the details of the `terraform` service principal to a team who will use Terraform to configure their azurerm provider to start using the `primary resource group` for their deployments.  
 The teams azurerm provider they configure with the provided service principal, will only have access to the backend storage container `primary-state` to store state files for deployments made in the `primary resource group`.  
 The provided service principal will have `contributor` rights to only the `Primary resource group` and not the backend resource group.  
@@ -27,7 +27,7 @@ The provided service principal will also only have access to get and list keys f
   - Create container: `backend-state`, where admin can migrate this module terraform state.
   - Create container: `primary-state`, where "terraform" service principal can migrate future projects terraform state.
 - Create the custom role definition  
-  - assigned to the primary resource group with rele `terraform-contributor`.
+  - assigned to the primary resource group with `terraform-contributor`.
   - assigned to backend storage account container: `primary-state` (Storage Blob Data Contributor).
 - Create `terraform` service principal with the `terraform-contributor` custom role definition assigned to use in the azurerm provider.
 - Create Backend terraform key vault to home created `terraform` Service principal ID and Secret:
@@ -35,8 +35,8 @@ The provided service principal will also only have access to get and list keys f
   - Assign access policy to keyvault for `terraform` service principal (Get/List)
 
 A setup log (setup.log) is also generated as part of the initial deployment.  
-State files are kept in seperate storage containers so that terraform destroy does not destroy the backend.  
-Anyone who utilises the Primary resource group for terraform deployments, using the service principal: `terraform` provisioned by this module can thus store state inside of the `primary-state` container which the `terraform` principal will have access to.
+State files are kept in separate storage containers so that terraform destroy does not destroy the backend.  
+Anyone who utilise the Primary resource group for terraform deployments, using the service principal: `terraform` provisioned by this module can thus store state inside of the `primary-state` container which the `terraform` principal will have access to.
   
 ## Usage
   

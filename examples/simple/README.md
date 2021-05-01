@@ -12,19 +12,21 @@ The backend-demo.tf file can be run to create a secure terraform environment bac
 2. Amend the .tf file and .tfvars file with desired variables.
 3. Log into azure using CLI "az login".
 4. **BUILD:**
-```
+
+```hcl
 terraform init
 terraform plan -out deploy.tfplan
 terraform apply deploy.tfplan
 ```
 
 5. **DESTROY:**
-```
+
+```hcl
 terraform plan -destroy -out destroy.tfplan
 terraform apply destroy.tfplan
 ```
 
-## Migrating the backend statefile (optional)
+## Migrating the backend state file (optional)
 
 After the backend infrastructure is setup from steps above (1-6):  
 

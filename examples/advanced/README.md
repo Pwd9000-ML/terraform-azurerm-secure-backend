@@ -21,19 +21,21 @@ Amend backend.tf to migrate state to remote state.
 3. Log into azure using CLI "az login".
 4. run: Terraform init
 5. BUILD:
-```
+
+```hcl
 terraform init
 terraform plan -out deploy.tfplan
 terraform apply deploy.tfplan
 ```
 
 6. DESTROY:
-```
+
+```hcl
 terraform plan -destroy -out destroy.tfplan
 terraform apply destroy.tfplan
 ```
 
-## Migrating the backend statefile. (Optional)
+## Migrating the backend state file. (Optional)
 
 After the backend infrastructure is setup from steps above (1-6):  
 
