@@ -7,10 +7,10 @@ data "azurerm_client_config" "current" {}
 ##################################################
 # RESOURCES                                      #
 ##################################################
-resource "random_password" "terraform" {
-  length  = 16
-  special = true
-}
+#resource "random_password" "terraform" {
+#  length  = 16
+#  special = true
+#}
 
 resource "azurerm_resource_group" "backend_rg" {
   name     = var.backend_resource_group_name
@@ -99,8 +99,8 @@ resource "azuread_service_principal" "terraform_app_sp" {
 
 resource "azuread_service_principal_password" "terraform_app_sp_pwd" {
   service_principal_id = azuread_service_principal.terraform_app_sp.id
-  value                = random_password.terraform.result
-  end_date_relative    = "17520h"
+  #value                = random_password.terraform.result
+  #end_date_relative    = "17520h"
 }
 
 resource "azurerm_role_definition" "terraform_role" {
