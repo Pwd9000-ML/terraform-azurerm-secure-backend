@@ -125,7 +125,7 @@ resource "azurerm_role_assignment" "primary_sa_container_ra" {
 
 resource "azurerm_key_vault_secret" "terraform_client_id" {
   name         = "tf-arm-client-id"
-  value        = azuread_application.terraform_app.id
+  value        = azuread_application.terraform_app.application_id
   key_vault_id = azurerm_key_vault.backend_kv.id
   tags         = merge(var.common_tags, { Purpose = "Terraform-Service-Principal-Application-ID" })
 }
