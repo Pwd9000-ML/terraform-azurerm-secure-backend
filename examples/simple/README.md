@@ -3,13 +3,13 @@
 ## Description
 
 The following example files can be used to demo the module called backend under path Modules/backend.  
-The example contains one terraform file (backend-demo.tf) and .tfvars file (terraform-demo.tfvars)  
-The backend-demo.tf file can be run to create a secure terraform environment backend as described in the module readme.  
+The example contains one terraform file (main.tf) and .tfvars file (terraform-demo.auto.tfvars)  
+The main.tf file can be run to create a secure terraform environment backend as described in the module readme.  
 
 ## Usage
 
 1. Clone or copy the two files in this path to a local directory and open a command prompt.
-2. Amend the .tf file and .tfvars file with desired variables.
+2. Amend main.tf and terraform-demo.auto.tfvars with desired variables.
 3. Log into azure using CLI "az login".
 4. **BUILD:**
 
@@ -28,9 +28,9 @@ The backend-demo.tf file can be run to create a secure terraform environment bac
 
 ## Migrating the backend state file (optional)
 
-After the backend infrastructure is setup from steps above (1-6):  
+After the backend infrastructure is setup from steps above (1-4):  
 
-- Uncomment relevant lines from backend-demo.tf and provide values for:
+- Uncomment relevant lines from main.tf and provide values for:
   - resource_group_name = "" (backend resource group name. This value will also be in "setup.log")
   - storage_account_name = "" (backend storage account name. This value will also be in "setup.log")
   - container_name = "backend-remote-state"
