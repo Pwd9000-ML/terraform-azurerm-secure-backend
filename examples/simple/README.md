@@ -8,9 +8,9 @@ The main.tf file can be run to create a secure terraform environment backend as 
 
 ## Usage
 
-1. Clone or copy the two files in this path to a local directory and open a command prompt.
-2. Amend main.tf and terraform-demo.auto.tfvars with desired variables.
-3. Log into azure using CLI "az login".
+1. Clone or copy the files in this path to a local directory and open a command prompt.
+2. Amend `main.tf` and `terraform-demo.auto.tfvars` with desired variables.
+3. Log into azure using CLI: `az login`
 4. **BUILD:**
 
     ```hcl
