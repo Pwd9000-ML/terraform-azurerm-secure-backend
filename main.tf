@@ -7,6 +7,10 @@ data "azurerm_client_config" "current" {}
 ##################################################
 # RESOURCES                                      #
 ##################################################
+#resource "random_password" "terraform" {
+#  length  = 16
+#  special = true
+#}
 
 resource "azurerm_resource_group" "backend_rg" {
   name     = var.backend_resource_group_name
@@ -95,6 +99,8 @@ resource "azuread_service_principal" "terraform_app_sp" {
 
 resource "azuread_service_principal_password" "terraform_app_sp_pwd" {
   service_principal_id = azuread_service_principal.terraform_app_sp.id
+  #value                = random_password.terraform.result
+  #end_date_relative    = "17520h"
 }
 
 resource "azurerm_role_definition" "terraform_role" {
@@ -125,7 +131,7 @@ resource "azurerm_role_assignment" "primary_sa_container_ra" {
 
 resource "azurerm_key_vault_secret" "terraform_client_id" {
   name         = "tf-arm-client-id"
-  value        = azuread_service_principal.terraform_app_sp.id
+  value        = azuread_application.terraform_app.id
   key_vault_id = azurerm_key_vault.backend_kv.id
   tags         = merge(var.common_tags, { Purpose = "Terraform-Service-Principal-Application-ID" })
 }
