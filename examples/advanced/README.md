@@ -22,18 +22,18 @@ Amend backend.tf to migrate state to remote state.
 4. run: Terraform init
 5. BUILD:
 
-```hcl
-terraform init
-terraform plan -out deploy.tfplan
-terraform apply deploy.tfplan
-```
+    ```hcl
+    terraform init
+    terraform plan -out deploy.tfplan
+    terraform apply deploy.tfplan
+    ```
 
 6. DESTROY:
 
-```hcl
-terraform plan -destroy -out destroy.tfplan
-terraform apply destroy.tfplan
-```
+    ```hcl
+    terraform plan -destroy -out destroy.tfplan
+    terraform apply destroy.tfplan
+    ```
 
 ## Migrating the backend state file. (Optional)
 
@@ -52,9 +52,9 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 
 ## Providers and terraform version requirements
   
-- terraform version >= 0.14.0
-- provider "azuread" >= 1.1.1
-- provider "azurerm" >= 2.41.0
+- terraform version >= 1.0.0
+- provider "azuread" >= 1.5.0
+- provider "azurerm" >= 2.62.1
   
 ## Module Input variables
   
@@ -82,5 +82,5 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 
 ## Other requirements
 
-- Azure CLI version >= 2.20.0
+- Azure CLI version >= 2.24.2
 - Powershell version >= 5.1

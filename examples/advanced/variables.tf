@@ -36,7 +36,7 @@ variable "lob" {
 
 variable "location" {
   type        = string
-  description = "Required Input - Location in azure where resources will be created. (ONLY accepted values [validation]: westeurope, centralus, eastasia)"
+  description = "Required Input - Location in azure where resources will be created. (ONLY accepted values [validation]: uksouth, westeurope, centralus, eastasia)"
 }
 
 variable "prefix" {
@@ -51,6 +51,7 @@ variable "region" {
     westeurope = "EMEA"
     centralus  = "NA"
     eastasia   = "APAC"
+    uksouth    = "UK"
   }
 }
 
