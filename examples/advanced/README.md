@@ -8,19 +8,18 @@ The example contains:
 
 - main terraform file (main.tf)
 - backend terraform file (backend.tf)
-- .tfvars file (terraform.tfvars)  
+- .tfvars file (terraform.auto.tfvars)  
 
-The main.tf and terraform.tfvars files can be amended to create a secure terraform environment backend as described in the module readme.  
-Amend terraform.tfvars with relevant SubscriptionID and TenantID that will be used with the azuread and azurerm provider.  
-Amend backend.tf to migrate state to remote state.  
+The `main.tf` and `terraform.auto.tfvars` files can be amended to create a secure terraform environment backend as described in the module readme.  
+Amend `terraform.auto.tfvars` with relevant SubscriptionID and TenantID that will be used with the azuread and azurerm provider.  
+Amend `backend.tf` to migrate state to remote state.  
 
 ## Usage
 
-1. Clone or copy the two files in this path to a local directory and open a command prompt.
-2. Amend the .tf file and .tfvars file with desired variables.
+1. Clone or copy the files in this path to a local directory and open a command prompt.
+2. Amend `main.tf` and `terraform.auto.tfvars` with desired variables.
 3. Log into azure using CLI "az login".
-4. run: Terraform init
-5. BUILD:
+4. BUILD:
 
     ```hcl
     terraform init
@@ -28,7 +27,7 @@ Amend backend.tf to migrate state to remote state.
     terraform apply deploy.tfplan
     ```
 
-6. DESTROY:
+5. DESTROY:
 
     ```hcl
     terraform plan -destroy -out destroy.tfplan
@@ -37,7 +36,7 @@ Amend backend.tf to migrate state to remote state.
 
 ## Migrating the backend state file. (Optional)
 
-After the backend infrastructure is setup from steps above (1-6):  
+After the backend infrastructure is setup from steps above (1-4):  
 
 - Uncomment relevant lines from backend.tf and provide values for:
   - resource_group_name = "" (backend resource group name. This value will also be in "setup.log")
@@ -56,29 +55,19 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 - provider "azuread" >= 1.5.0
 - provider "azurerm" >= 2.62.1
   
-## Module Input variables
+## Input variables
   
-- `backend_storage_account_name` - (Required) Specifies the name of the Backend Storage Account (must be unique, all lowercase).
-- `kv_name` - (Required) Specifies the name of the Backend Key Vault (must be unique).
-- `backend_resource_group_name` - (Optional) Specifies the name of the Backend Resource Group.
-- `backend_sa_access_tier` - (Optional) The access tier of the backend storage account. (accepted values: Cool, Hot)
-- `backend_sa_account_kind` - (Optional) Defines the Kind of account. (accepted values: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2)
-- `backend_sa_account_tier` - (Optional) Defines the Tier to use for this storage account. (accepted values: Standard, Premium. For FileStorage accounts only Premium is valid.)
-- `backend_sa_account_repl` - (Optional) Defines the type of replication to use for this storage account. (accepted values: LRS, GRS, RAGRS, ZRS)
-- `backend_sa_account_https` - (Optional) Boolean flag which forces HTTPS if enabled. (accepted values: true, false)
-- `common_tags` - (Optional) Optional map of strings to use as tags on resources.
-- `environment` - (Optional) Specifies the name of the environment (e.g. Development).
-- `location` - (Optional) Specifies the location of resources (e.g. westeurope).
-- `primary_resource_group_name` - (Optional) Specifies the name of the Primary Resource Group.
-  
-## Module Outputs
+- `BillingCode` - (Optional) Billing code map based on environment. (defined in locals).
+- `CostCenter` - (Optional) Cost center map based on line of business. (defined in locals).
+- `environment` - (Required) Value to describe the environment. (defined in locals). Accepted values: Development, UAT, QA, POC, Testing, Production.
+- `lob` - (Required) Describes line of business. (defined in locals). Accepted values: IT, Development, Research.
+- `location` - (Required) Location in azure where resources will be created. ([Validated] ONLY accepted values: uksouth, westeurope, centralus, eastasia).
+- `prefix` - (Required) Used for naming conventions. (defined in locals).
+- `region` - (Optional) Regional map based on location. (defined in locals).
+- `tenantid` - (Required) Tenant ID of azure AD tenant used for azuread provider.
+- `subscriptionid` - (Required) Subscription ID used for azurerm provider.
 
-- `backend_resource_group_id` - The resource ID for the backend resource group.
-- `primary_resource_group_id` -  The resource ID for the primary resource group.
-- `backend_storage_account_id` - The resource ID for the backend storage account.
-- `backend_key_vault_id` - The resource ID for the backend key vault.
-- `terraform_application_id` - The CLIENT ID for the terraform application service principal.
-- `terraform_custom_role_id` - The terraform-contributor role id.
+`Required input variables` can be changed or set in `terraform.auto.tfvars`
 
 ## Other requirements
 

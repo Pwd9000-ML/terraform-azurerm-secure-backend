@@ -26,7 +26,7 @@ variable "CostCenter" {
 
 variable "environment" {
   type        = string
-  description = "Required Input - Value to describe the environment. Primarily used for tagging and naming resources. (used for naming conventions defined in locals)"
+  description = "Required Input - Value to describe the environment. Primarily used for tagging and naming resources. (used for naming conventions defined in locals). Examples: Development, UAT, QA, POC, Testing, Production."
 }
 
 variable "lob" {

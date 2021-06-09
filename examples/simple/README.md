@@ -51,15 +51,8 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 
 - `location` - (Required) Specifies the location of resources (Validated: uksouth, westeurope, centralus, eastasia).
 - `region` - (Optional) Regional map based on location. (used for naming conventions in locals).
-  
-## Module Outputs
 
-- `backend_resource_group_id` - The resource ID for the backend resource group.
-- `primary_resource_group_id` -  The resource ID for the primary resource group.
-- `backend_storage_account_id` - The resource ID for the backend storage account.
-- `backend_key_vault_id` - The resource ID for the backend key vault.
-- `terraform_application_id` - The CLIENT ID for the terraform application service principal.
-- `terraform_custom_role_id` - The terraform-contributor role id.
+`Required input variables` can be changed or set in `terraform-demo.auto.tfvars`
 
 ## Other requirements
 
