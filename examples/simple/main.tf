@@ -32,6 +32,7 @@ locals {
     westeurope = "westeurope"
     centralus  = "centralus"
     eastasia   = "eastasia"
+    uksouth    = "uksouth"
   }
   # Error is input variable "location" does not match locals location map
   validate_input_location = local.locations[var.location]

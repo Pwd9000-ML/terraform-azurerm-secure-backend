@@ -1,2 +1,2 @@
-#e.g. westeurope, centralus, eastasia
-location = "westeurope"
+#e.g. uksouth, westeurope, centralus, eastasia
+location = "uksouth"

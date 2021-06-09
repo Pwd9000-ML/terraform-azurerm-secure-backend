@@ -44,9 +44,9 @@ The initial setup needs to be performed by an admin user who has sufficient perm
   
 ## Providers and terraform version requirements
   
-- terraform version >= 0.14.0
-- provider "azuread" >= 1.1.1
-- provider "azurerm" >= 2.41.0
+- terraform version >= 1.0.0
+- provider "azuread" >= 1.5.0
+- provider "azurerm" >= 2.62.1
   
 ## Module Input variables
   
@@ -74,7 +74,7 @@ The initial setup needs to be performed by an admin user who has sufficient perm
 
 ## Other requirements
 
-- Azure CLI version >= 2.20.0
+- Azure CLI version >= 2.24.2
 - Powershell version >= 5.1
 
 ## Example
