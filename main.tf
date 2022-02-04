@@ -116,8 +116,7 @@ resource "azurerm_role_definition" "terraform_role" {
 
 resource "azurerm_role_assignment" "primary_rg_ra" {
   scope = azurerm_resource_group.primary_rg.id
-  #role_definition_id = azurerm_role_definition.terraform_role.id <Broken GH ticket>
-  role_definition_name = azurerm_role_definition.terraform_role.name # temp work around
+  role_definition_id   = azurerm_role_definition.terraform_role.role_definition_resource_id
   principal_id         = azuread_service_principal.terraform_app_sp.id
 }
 
