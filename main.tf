@@ -20,6 +20,7 @@ resource "azurerm_resource_group" "primary_rg" {
   tags     = merge(var.common_tags, { Purpose = "Terraform-Primary-Resource-Group-${var.environment}" })
 }
 
+#tfsec:ignore:azure-storage-queue-services-logging-enabled
 resource "azurerm_storage_account" "backend_sa" {
   name                      = var.backend_storage_account_name
   resource_group_name       = azurerm_resource_group.backend_rg.name
@@ -51,8 +52,15 @@ resource "azurerm_key_vault" "backend_kv" {
   enabled_for_disk_encryption     = true
   enabled_for_template_deployment = true
   enabled_for_deployment          = true
+  soft_delete_retention_days      = 7
+  purge_protection_enabled        = true
   sku_name                        = "standard"
   tags                            = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.environment}" })
+
+  network_acls {
+    bypass         = "AzureServices"
+    default_action = "Deny"
+  }
 
   access_policy {
     tenant_id       = data.azurerm_subscription.current.tenant_id
@@ -123,18 +131,22 @@ resource "azurerm_role_assignment" "primary_sa_container_ra" {
   principal_id         = azuread_service_principal.terraform_app_sp.id
 }
 
+#tfsec:ignore:azure-keyvault-ensure-secret-expiry
 resource "azurerm_key_vault_secret" "terraform_client_id" {
   name         = "tf-arm-client-id"
   value        = azuread_application.terraform_app.application_id
   key_vault_id = azurerm_key_vault.backend_kv.id
   tags         = merge(var.common_tags, { Purpose = "Terraform-Service-Principal-Application-ID" })
+  content_type = "ARM_CLIENT_ID"
 }
 
+#tfsec:ignore:azure-keyvault-ensure-secret-expiry
 resource "azurerm_key_vault_secret" "terraform_client_secret" {
   name         = "tf-arm-client-secret"
   value        = azuread_service_principal_password.terraform_app_sp_pwd.value
   key_vault_id = azurerm_key_vault.backend_kv.id
   tags         = merge(var.common_tags, { Purpose = "Terraform-Service-Principal-Application-Secret" })
+  content_type = "ARM_CLIENT_SECRET"
 }
 
 resource "null_resource" "setup-log" {

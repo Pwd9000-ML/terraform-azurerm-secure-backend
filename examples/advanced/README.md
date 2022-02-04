@@ -51,9 +51,9 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 
 ## Providers and terraform version requirements
   
-- terraform version >= 1.0.0
-- provider "azuread" >= 1.5.0
-- provider "azurerm" >= 2.62.1
+- terraform version >= 1.1.4
+- provider "azuread" >= 2.17.0
+- provider "azurerm" >= 2.95.0
   
 ## Input variables
   
@@ -71,5 +71,4 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 
 ## Other requirements
 
-- Azure CLI version >= 2.24.2
-- Powershell version >= 5.1
+- Azure CLI version >= 2.32.0
