@@ -10,8 +10,6 @@ The `backend resource group` will contain a backend storage account and two cont
 Storage containers are kept separated to keep the `backend state` separate from the `primary state` as the `primary state` will be utilized by the remote team using the principal created by this module. The provided `terraform-SPN` AAD Application & service principal will only have access to the backend storage account container `primary-state` to access the remote state of future deployments by the remote teams terraform deployments.  
   
 The `backend resource group` will also contain a `backend key vault` where the `terraform-SPN` AAD Application service principal ID and secret will be stored as secrets that can be given to the remote team to configure their provider with.  
-The key vault will have the firewall enabled and public access will be denied (default).  
-Service-endpoints and/or IP whitelisting is required to access the key vault.  
 
 The `terraform-SPN` service principal will also only have access to get and list keys from the `backend key vault`.  
 The admin user who sets up the environment using this module will have full access to the backend key vault and can distribute the details to the remote team.  

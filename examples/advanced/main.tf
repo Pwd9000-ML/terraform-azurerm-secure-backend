@@ -7,7 +7,12 @@ provider "azuread" {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    key_vault {
+      recover_soft_deleted_key_vaults = true
+      purge_soft_delete_on_destroy    = false
+    }
+  }
   alias           = "az_rm_alias1"
   subscription_id = var.subscriptionid
 }

@@ -44,6 +44,7 @@ resource "azurerm_storage_container" "primary_sa_container" {
   storage_account_name = azurerm_storage_account.backend_sa.name
 }
 
+#tfsec:ignore:azure-keyvault-specify-network-acl
 resource "azurerm_key_vault" "backend_kv" {
   name                            = var.kv_name
   location                        = azurerm_resource_group.backend_rg.location
@@ -56,11 +57,6 @@ resource "azurerm_key_vault" "backend_kv" {
   purge_protection_enabled        = true
   sku_name                        = "standard"
   tags                            = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.environment}" })
-
-  network_acls {
-    bypass         = "AzureServices"
-    default_action = "Deny"
-  }
 
   access_policy {
     tenant_id       = data.azurerm_subscription.current.tenant_id
