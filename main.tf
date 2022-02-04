@@ -54,9 +54,10 @@ resource "azurerm_key_vault" "backend_kv" {
   enabled_for_template_deployment = true
   enabled_for_deployment          = true
   soft_delete_retention_days      = 7
-  purge_protection_enabled        = true
-  sku_name                        = "standard"
-  tags                            = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.environment}" })
+  #tfsec:ignore:azure-keyvault-no-purge
+  purge_protection_enabled = false
+  sku_name                 = "standard"
+  tags                     = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.environment}" })
 
   access_policy {
     tenant_id       = data.azurerm_subscription.current.tenant_id
@@ -115,9 +116,9 @@ resource "azurerm_role_definition" "terraform_role" {
 }
 
 resource "azurerm_role_assignment" "primary_rg_ra" {
-  scope = azurerm_resource_group.primary_rg.id
-  role_definition_id   = azurerm_role_definition.terraform_role.role_definition_resource_id
-  principal_id         = azuread_service_principal.terraform_app_sp.id
+  scope              = azurerm_resource_group.primary_rg.id
+  role_definition_id = azurerm_role_definition.terraform_role.role_definition_resource_id
+  principal_id       = azuread_service_principal.terraform_app_sp.id
 }
 
 resource "azurerm_role_assignment" "primary_sa_container_ra" {
