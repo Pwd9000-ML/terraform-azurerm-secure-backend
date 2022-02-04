@@ -30,7 +30,7 @@ The provided service principal will also only have access to get and list keys f
 - Create the custom role definition  
   - assigned to the primary resource group with `terraform-contributor`.
   - assigned to backend storage account container: `primary-state` (Storage Blob Data Contributor).
-- Create `terraform` service principal with the `terraform-contributor` custom role definition assigned to use in the azureRM provider.
+- Create `terraform-SPN` AAD Application & service principal with the `terraform-contributor` custom role definition assigned to use in the azureRM provider.
 - Create Backend terraform key vault to home created `terraform` Service principal ID and Secret:
   - The service principal ARM_CLIENT_ID: `tf-arm-client-id` and ARM_CLIENT_SECRET: `tf-arm-client-secret` will be stored in the created backend key vault.
   - Assign access policy to key vault for `terraform-SPN` service principal (Get/List)
