@@ -86,7 +86,7 @@ resource "azurerm_key_vault" "backend_kv" {
 }
 
 resource "azuread_application" "terraform_app" {
-  name = "terraform"
+  display_name = "terraform-SPN"
 }
 
 resource "azuread_service_principal" "terraform_app_sp" {
