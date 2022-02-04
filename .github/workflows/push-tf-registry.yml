@@ -1,0 +1,15 @@
+on:
+  push:
+    tags:
+      - '*'
+
+name: Release to terraform public registry
+jobs:
+  Release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ncipollo/release-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
