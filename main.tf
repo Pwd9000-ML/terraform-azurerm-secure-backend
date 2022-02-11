@@ -44,20 +44,18 @@ resource "azurerm_storage_container" "primary_sa_container" {
   storage_account_name = azurerm_storage_account.backend_sa.name
 }
 
-#tfsec:ignore:azure-keyvault-specify-network-acl
 resource "azurerm_key_vault" "backend_kv" {
   name                            = var.kv_name
   location                        = azurerm_resource_group.backend_rg.location
   resource_group_name             = azurerm_resource_group.backend_rg.name
   tenant_id                       = data.azurerm_subscription.current.tenant_id
-  enabled_for_disk_encryption     = true
-  enabled_for_template_deployment = true
-  enabled_for_deployment          = true
-  soft_delete_retention_days      = 7
-  #tfsec:ignore:azure-keyvault-no-purge
-  purge_protection_enabled = false
-  sku_name                 = "standard"
-  tags                     = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.environment}" })
+  enabled_for_disk_encryption     = false
+  enabled_for_template_deployment = false
+  enabled_for_deployment          = false
+  soft_delete_retention_days      = var.soft_delete_retention_days
+  purge_protection_enabled        = false
+  sku_name                        = var.kv_sku
+  tags                            = merge(var.common_tags, { Purpose = "Backend-Key-Vault-${var.environment}" })
 
   access_policy {
     tenant_id       = data.azurerm_subscription.current.tenant_id
@@ -91,7 +89,7 @@ resource "azurerm_key_vault" "backend_kv" {
 }
 
 resource "azuread_application" "terraform_app" {
-  display_name = "terraform-SPN"
+  display_name = var.spn_name
 }
 
 resource "azuread_service_principal" "terraform_app_sp" {

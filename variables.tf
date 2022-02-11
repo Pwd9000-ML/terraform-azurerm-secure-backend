@@ -64,12 +64,30 @@ variable "kv_name" {
 
 variable "location" {
   type        = string
-  default     = "westeurope"
-  description = "Optional Input - Location in azure where resources will be created. (Default: westeurope)"
+  default     = "uksouth"
+  description = "Optional Input - Location in azure where resources will be created. (Default: uksouth)"
 }
 
 variable "primary_resource_group_name" {
   type        = string
   default     = "PrimaryRG"
   description = "Optional Input - The name for the primary resource group with 'terraform-contributor' role assigned. (Default: BackendRG)"
+}
+
+variable "soft_delete_retention_days" {
+  type        = number
+  default     = "7"
+  description = "Optional Input - Key Vault soft delete retention days. (Default: 7)"
+}
+
+variable "kv_sku" {
+  type        = string
+  default     = "standard"
+  description = "Optional Input - Key Vault SKU. (Default: standard)"
+}
+
+variable "spn_name" {
+  type        = string
+  default     = "terraform-SPN"
+  description = "Optional Input - Azure AD App & SPN name. (Default: terraform-SPN)"
 }
