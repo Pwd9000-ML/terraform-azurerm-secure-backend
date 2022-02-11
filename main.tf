@@ -171,6 +171,6 @@ Add-content -value 'Terraform Contributor Role Definition = "${azurerm_role_defi
 Add-content -value 'Terraform app and role assigned to: "${azurerm_resource_group.primary_rg.name}"' -Path "setup.log"
 Add-content -value 'Terraform app ID secret: "${azurerm_key_vault_secret.terraform_client_secret.name}" can be obtained from kv: "${azurerm_key_vault.backend_kv.name}"' -Path "setup.log"
 EOT
-    interpreter = ["Powershell", "-Command"]
+    interpreter = ["pwsh", "-Command"]
   }
 }
