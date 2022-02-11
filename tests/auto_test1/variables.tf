@@ -7,6 +7,6 @@ variable "storage_account_name" {
 }
 
 variable "key_vault_name" {
-  type        = map(any)
+  type        = string
   description = "Specify a key vault name name to be created for the frontend"
 }
