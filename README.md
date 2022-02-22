@@ -45,12 +45,6 @@ Anyone who utilise the Primary resource group for terraform deployments, using t
   
 The initial setup needs to be performed by an admin user who has sufficient permissions to Azure via CLI. (See examples readme for more info)  
   
-## Providers and terraform version requirements
-  
-- terraform version >= 1.1.4
-- provider "azuread" >= 2.17.0
-- provider "azurerm" >= 2.95.0
-  
 ## Module Input variables
   
 - `backend_storage_account_name` - (Required) Specifies the name of the Backend Storage Account (must be unique, all lowercase).
@@ -77,10 +71,6 @@ The initial setup needs to be performed by an admin user who has sufficient perm
 - `backend_key_vault_id` - The resource ID for the backend key vault.
 - `terraform_application_id` - The CLIENT ID for the terraform application service principal.
 - `terraform_custom_role_id` - The terraform-contributor role id.
-
-## Other requirements
-
-- Azure CLI version >= 2.32.0
 
 ## Example
 

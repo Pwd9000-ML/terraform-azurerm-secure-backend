@@ -48,12 +48,6 @@ After the backend infrastructure is setup from steps above (1-4):
 
 The backend state is now migrated to the backend storage account and container for the backend.  
 To cleanup the demo run: terraform destroy and delete the .terraform directory. (contains remote backend state config).  
-
-## Providers and terraform version requirements
-  
-- terraform version >= 1.1.4
-- provider "azuread" >= 2.17.0
-- provider "azurerm" >= 2.95.0
   
 ## Input variables
   
@@ -68,7 +62,3 @@ To cleanup the demo run: terraform destroy and delete the .terraform directory. 
 - `subscriptionid` - (Required) Subscription ID used for azurerm provider.
 
 `Required input variables` can be changed or set in `terraform.auto.tfvars`
-
-## Other requirements
-
-- Azure CLI version >= 2.32.0

@@ -41,19 +41,9 @@ After the backend infrastructure is setup from steps above (1-4):
 The backend state is now migrated to the backend storage account and container for the backend.  
 To cleanup the demo run: terraform destroy and delete the .terraform directory. (contains remote backend state config).  
 
-## Providers and terraform version requirements
-  
-- terraform version >= 1.1.4
-- provider "azuread" >= 2.17.0
-- provider "azurerm" >= 2.95.0
-
 ## Input variables
 
 - `location` - (Required) Specifies the location of resources (Validated: uksouth, westeurope, centralus, eastasia).
 - `region` - (Optional) Regional map based on location. (used for naming conventions in locals).
 
 `Required input variables` can be changed or set in `terraform-demo.auto.tfvars`
-
-## Other requirements
-
-- Azure CLI version >= 2.32.0
