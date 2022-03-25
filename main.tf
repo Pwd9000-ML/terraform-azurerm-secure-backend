@@ -62,8 +62,8 @@ resource "azurerm_key_vault" "backend_kv" {
     object_id       = azuread_service_principal.terraform_app_sp.id
     key_permissions = []
     secret_permissions = [
-      "get",
-      "list",
+      "Get",
+      "List"
     ]
     certificate_permissions = []
     storage_permissions     = []
@@ -74,14 +74,14 @@ resource "azurerm_key_vault" "backend_kv" {
     object_id       = data.azurerm_client_config.current.object_id
     key_permissions = []
     secret_permissions = [
-      "backup",
-      "delete",
-      "purge",
-      "recover",
-      "restore",
-      "set",
-      "get",
-      "list",
+      "Backup",
+      "Delete",
+      "Purge",
+      "Recover",
+      "Restore",
+      "Set",
+      "Get",
+      "List"
     ]
     certificate_permissions = []
     storage_permissions     = []
