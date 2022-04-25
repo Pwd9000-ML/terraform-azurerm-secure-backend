@@ -73,7 +73,7 @@ jobs:
         id: version
         uses: zwaldowski/semver-release-action@v2
         with:
-          bump: minor
+          bump: patch
           dry_run: true
           github_token: ${{secrets.GITHUB_TOKEN}}
 
