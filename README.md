@@ -92,21 +92,21 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_backend_resource_group_name"></a> [backend\_resource\_group\_name](#input\_backend\_resource\_group\_name) | Optional Input - The name for the backend resource group that will home the backend storage account and backend key vault. (Default: BackendRG) | `string` | `"BackendRG"` | no |
-| <a name="input_backend_sa_access_tier"></a> [backend\_sa\_access\_tier](#input\_backend\_sa\_access\_tier) | Optional Input - The access tier of the backend storage account. (accepted values: Cool, Hot) | `string` | `"Hot"` | no |
-| <a name="input_backend_sa_account_https"></a> [backend\_sa\_account\_https](#input\_backend\_sa\_account\_https) | Optional Input - Boolean flag which forces HTTPS if enabled. (accepted values: true, false) | `bool` | `true` | no |
-| <a name="input_backend_sa_account_kind"></a> [backend\_sa\_account\_kind](#input\_backend\_sa\_account\_kind) | Optional Input - Defines the Kind of account. (accepted values: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2) | `string` | `"BlobStorage"` | no |
-| <a name="input_backend_sa_account_repl"></a> [backend\_sa\_account\_repl](#input\_backend\_sa\_account\_repl) | Optional Input - Defines the type of replication to use for this storage account. (accepted values: LRS, GRS, RAGRS, ZRS) | `string` | `"LRS"` | no |
-| <a name="input_backend_sa_account_tier"></a> [backend\_sa\_account\_tier](#input\_backend\_sa\_account\_tier) | Optional Input - Defines the Tier to use for this storage account. (accepted values: Standard, Premium. For FileStorage accounts only Premium is valid.) | `string` | `"Standard"` | no |
-| <a name="input_backend_storage_account_name"></a> [backend\_storage\_account\_name](#input\_backend\_storage\_account\_name) | Required Input - The name for the backend storage account that will home the backend and primary state blob containers. (Unique all lowercase) | `string` | n/a | yes |
-| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | Optional Input - A map of key value pairs that is used to tag resources created. (Default: demo map) | `map(string)` | <pre>{<br>  "CommonTag1": "demo1",<br>  "CommonTag2": "This is a demo"<br>}</pre> | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Optional Input - Value to describe the environment. Primarily used for tagging and naming resources. (Default: Development) | `string` | `"Development"` | no |
-| <a name="input_kv_name"></a> [kv\_name](#input\_kv\_name) | Required Input - The name for the backend key vault that will home terraform secrets e.g. terraform ARM\_CLIENT\_ID and ARM\_CLIENT\_SECRET. (Unique all lowercase) | `string` | `"terraform-kv"` | no |
-| <a name="input_kv_sku"></a> [kv\_sku](#input\_kv\_sku) | Optional Input - Key Vault SKU. (Default: standard) | `string` | `"standard"` | no |
-| <a name="input_location"></a> [location](#input\_location) | Optional Input - Location in azure where resources will be created. (Default: uksouth) | `string` | `"uksouth"` | no |
-| <a name="input_primary_resource_group_name"></a> [primary\_resource\_group\_name](#input\_primary\_resource\_group\_name) | Optional Input - The name for the primary resource group with 'terraform-contributor' role assigned. (Default: BackendRG) | `string` | `"PrimaryRG"` | no |
-| <a name="input_soft_delete_retention_days"></a> [soft\_delete\_retention\_days](#input\_soft\_delete\_retention\_days) | Optional Input - Key Vault soft delete retention days. (Default: 7) | `number` | `"7"` | no |
-| <a name="input_spn_name"></a> [spn\_name](#input\_spn\_name) | Optional Input - Azure AD App & SPN name. (Default: terraform-SPN) | `string` | `"terraform-SPN"` | no |
+| <a name="input_backend_resource_group_name"></a> [backend\_resource\_group\_name](#input\_backend\_resource\_group\_name) | The name for the backend resource group that will home the backend storage account and backend key vault. (Default: BackendRG) | `string` | `"BackendRG"` | no |
+| <a name="input_backend_sa_access_tier"></a> [backend\_sa\_access\_tier](#input\_backend\_sa\_access\_tier) | The access tier of the backend storage account. (accepted values: Cool, Hot) | `string` | `"Hot"` | no |
+| <a name="input_backend_sa_account_https"></a> [backend\_sa\_account\_https](#input\_backend\_sa\_account\_https) | Boolean flag which forces HTTPS if enabled. (accepted values: true, false) | `bool` | `true` | no |
+| <a name="input_backend_sa_account_kind"></a> [backend\_sa\_account\_kind](#input\_backend\_sa\_account\_kind) | Defines the Kind of account. (accepted values: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2) | `string` | `"BlobStorage"` | no |
+| <a name="input_backend_sa_account_repl"></a> [backend\_sa\_account\_repl](#input\_backend\_sa\_account\_repl) | Defines the type of replication to use for this storage account. (accepted values: LRS, GRS, RAGRS, ZRS) | `string` | `"LRS"` | no |
+| <a name="input_backend_sa_account_tier"></a> [backend\_sa\_account\_tier](#input\_backend\_sa\_account\_tier) | Defines the Tier to use for this storage account. (accepted values: Standard, Premium. For FileStorage accounts only Premium is valid.) | `string` | `"Standard"` | no |
+| <a name="input_backend_storage_account_name"></a> [backend\_storage\_account\_name](#input\_backend\_storage\_account\_name) | The name for the backend storage account that will home the backend and primary state blob containers. (Unique all lowercase) | `string` | `"tfbackendsa"` | no |
+| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | A map of key value pairs that is used to tag resources created. (Default: demo map) | `map(string)` | <pre>{<br>  "CommonTag1": "demo1",<br>  "CommonTag2": "This is a demo"<br>}</pre> | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Value to describe the environment. Primarily used for tagging and naming resources. (Default: Development) | `string` | `"Development"` | no |
+| <a name="input_kv_name"></a> [kv\_name](#input\_kv\_name) | The name for the backend key vault that will home terraform secrets e.g. terraform ARM\_CLIENT\_ID and ARM\_CLIENT\_SECRET. (Unique all lowercase) | `string` | `"terraform-kv"` | no |
+| <a name="input_kv_sku"></a> [kv\_sku](#input\_kv\_sku) | Key Vault SKU. (Default: standard) | `string` | `"standard"` | no |
+| <a name="input_location"></a> [location](#input\_location) | Location in azure where resources will be created. (Default: uksouth) | `string` | `"uksouth"` | no |
+| <a name="input_primary_resource_group_name"></a> [primary\_resource\_group\_name](#input\_primary\_resource\_group\_name) | The name for the primary resource group with 'terraform-contributor' role assigned. (Default: BackendRG) | `string` | `"PrimaryRG"` | no |
+| <a name="input_soft_delete_retention_days"></a> [soft\_delete\_retention\_days](#input\_soft\_delete\_retention\_days) | Key Vault soft delete retention days. (Default: 7) | `number` | `"7"` | no |
+| <a name="input_spn_name"></a> [spn\_name](#input\_spn\_name) | Azure AD App & SPN name. (Default: terraform-SPN) | `string` | `"terraform-SPN"` | no |
 
 ## Outputs
 

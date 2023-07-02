@@ -3,7 +3,7 @@
 ##################################################
 variable "BillingCode" {
   type        = map(string)
-  description = "Optional Input - Billing code map based on environment. (used for common tags defined in locals)"
+  description = "Billing code map based on environment. (used for common tags defined in locals)"
   default = {
     Development = "100"
     UAT         = "101"
@@ -16,7 +16,7 @@ variable "BillingCode" {
 
 variable "CostCenter" {
   type        = map(string)
-  description = "Optional Input - Cost center map based on line of business. (used for naming conventions defined in locals)"
+  description = "Cost center map based on line of business. (used for naming conventions defined in locals)"
   default = {
     IT          = "IT"
     Development = "DEV"
@@ -26,30 +26,31 @@ variable "CostCenter" {
 
 variable "environment" {
   type        = string
-  description = "Required Input - Value to describe the environment. Primarily used for tagging and naming resources. (used for naming conventions defined in locals). Examples: Development, UAT, QA, POC, Testing, Production."
+  default     = "Development"
+  description = "Value to describe the environment. Primarily used for tagging and naming resources. (used for naming conventions defined in locals). Examples: Development, UAT, QA, POC, Testing, Production."
 }
 
 variable "lob" {
   type        = string
-  default     = ""
-  description = "Required Input - Describes line of business. (used for naming conventions defined in locals; accepted values: IT, Development, Research)"
+  default     = "IT"
+  description = "Describes line of business. (used for naming conventions defined in locals; accepted values: IT, Development, Research)"
 }
 
 variable "location" {
   type        = string
   default     = "uksouth"
-  description = "Required Input - Location in azure where resources will be created. (ONLY accepted values [validation]: uksouth, westeurope, centralus, eastasia)"
+  description = "Location in azure where resources will be created. (ONLY accepted values [validation]: uksouth, westeurope, centralus, eastasia)"
 }
 
 variable "prefix" {
   type        = string
-  default     = ""
-  description = "Required Input - Used for naming conventions defined in locals"
+  default     = "Demo"
+  description = "Used for naming conventions defined in locals"
 }
 
 variable "region" {
   type        = map(string)
-  description = "Optional Input - Regional map based on location. (used for naming conventions defined in locals)"
+  description = "Regional map based on location. (used for naming conventions defined in locals)"
   default = {
     westeurope = "EMEA"
     centralus  = "NA"
@@ -60,12 +61,12 @@ variable "region" {
 
 variable "tenantid" {
   type        = string
-  default     = ""
-  description = "Required Input - Tenant ID of azure AD tenant used for azuread provider"
+  default     = null
+  description = "Tenant ID of azure AD tenant used for azuread provider"
 }
 
 variable "subscriptionid" {
   type        = string
-  default     = ""
-  description = "Required Input - Subscription ID used for azurerm provider"
+  default     = null
+  description = "Subscription ID used for azurerm provider"
 }
