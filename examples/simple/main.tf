@@ -1,6 +1,8 @@
-##################################################
-# PROVIDERS                                      #
-##################################################
+terraform {
+  #backend "azurerm" {}
+  backend "local" { path = "terraform-example1.tfstate" }
+}
+
 provider "azuread" {
 }
 provider "azurerm" {
@@ -12,18 +14,6 @@ provider "azurerm" {
   }
   skip_provider_registration = true
 }
-
-##################################################
-# BACKEND                                        #
-##################################################
-#terraform {
-#    backend "azurerm" {
-#        resource_group_name  = "BackendRG"
-#        storage_account_name = "backendsaname0001"
-#        container_name       = "backend-remote-state"
-#        key                  = "terraform.tfstate"
-#    }
-#}
 
 ##################################################
 # LOCALS                                         #

@@ -1,6 +1,8 @@
-##################################################
-# PROVIDERS                                      #
-##################################################
+terraform {
+  #backend "azurerm" {}
+  backend "local" { path = "terraform-example2.tfstate" }
+}
+
 provider "azuread" {
   alias     = "az_ad_alias1"
   tenant_id = var.tenantid

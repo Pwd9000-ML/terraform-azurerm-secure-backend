@@ -48,17 +48,45 @@ After the backend infrastructure is setup from steps above (1-4):
 
 The backend state is now migrated to the backend storage account and container for the backend.  
 To cleanup the demo run: terraform destroy and delete the .terraform directory. (contains remote backend state config).  
-  
-## Input variables
-  
-- `BillingCode` - (Optional) Billing code map based on environment. (defined in locals).
-- `CostCenter` - (Optional) Cost center map based on line of business. (defined in locals).
-- `environment` - (Required) Value to describe the environment. (defined in locals). Accepted values: Development, UAT, QA, POC, Testing, Production.
-- `lob` - (Required) Describes line of business. (defined in locals). Accepted values: IT, Development, Research.
-- `location` - (Required) Location in azure where resources will be created. ([Validated] ONLY accepted values: uksouth, westeurope, centralus, eastasia).
-- `prefix` - (Required) Used for naming conventions. (defined in locals).
-- `region` - (Optional) Regional map based on location. (defined in locals).
-- `tenantid` - (Required) Tenant ID of azure AD tenant used for azuread provider.
-- `subscriptionid` - (Required) Subscription ID used for azurerm provider.
 
-`Required input variables` can be changed or set in `terraform.auto.tfvars`
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_backend"></a> [backend](#module\_backend) | github.com/Pwd9000-ML/terraform-azurerm-secure-backend | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [random_integer.sa_num](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_BillingCode"></a> [BillingCode](#input\_BillingCode) | Optional Input - Billing code map based on environment. (used for common tags defined in locals) | `map(string)` | <pre>{<br>  "Development": "100",<br>  "POC": "103",<br>  "Production": "105",<br>  "QA": "102",<br>  "Testing": "104",<br>  "UAT": "101"<br>}</pre> | no |
+| <a name="input_CostCenter"></a> [CostCenter](#input\_CostCenter) | Optional Input - Cost center map based on line of business. (used for naming conventions defined in locals) | `map(string)` | <pre>{<br>  "Development": "DEV",<br>  "IT": "IT",<br>  "Research": "RND"<br>}</pre> | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Required Input - Value to describe the environment. Primarily used for tagging and naming resources. (used for naming conventions defined in locals). Examples: Development, UAT, QA, POC, Testing, Production. | `string` | n/a | yes |
+| <a name="input_lob"></a> [lob](#input\_lob) | Required Input - Describes line of business. (used for naming conventions defined in locals; accepted values: IT, Development, Research) | `string` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | Required Input - Location in azure where resources will be created. (ONLY accepted values [validation]: uksouth, westeurope, centralus, eastasia) | `string` | n/a | yes |
+| <a name="input_prefix"></a> [prefix](#input\_prefix) | Required Input - Used for naming conventions defined in locals | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | Optional Input - Regional map based on location. (used for naming conventions defined in locals) | `map(string)` | <pre>{<br>  "centralus": "NA",<br>  "eastasia": "APAC",<br>  "uksouth": "UK",<br>  "westeurope": "EMEA"<br>}</pre> | no |
+| <a name="input_subscriptionid"></a> [subscriptionid](#input\_subscriptionid) | Required Input - Subscription ID used for azurerm provider | `string` | n/a | yes |
+| <a name="input_tenantid"></a> [tenantid](#input\_tenantid) | Required Input - Tenant ID of azure AD tenant used for azuread provider | `string` | n/a | yes |
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
