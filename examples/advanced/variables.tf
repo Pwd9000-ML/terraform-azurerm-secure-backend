@@ -31,16 +31,19 @@ variable "environment" {
 
 variable "lob" {
   type        = string
+  default     = ""
   description = "Required Input - Describes line of business. (used for naming conventions defined in locals; accepted values: IT, Development, Research)"
 }
 
 variable "location" {
   type        = string
+  default     = "uksouth"
   description = "Required Input - Location in azure where resources will be created. (ONLY accepted values [validation]: uksouth, westeurope, centralus, eastasia)"
 }
 
 variable "prefix" {
   type        = string
+  default     = ""
   description = "Required Input - Used for naming conventions defined in locals"
 }
 
@@ -57,10 +60,12 @@ variable "region" {
 
 variable "tenantid" {
   type        = string
+  default     = ""
   description = "Required Input - Tenant ID of azure AD tenant used for azuread provider"
 }
 
 variable "subscriptionid" {
   type        = string
+  default     = ""
   description = "Required Input - Subscription ID used for azurerm provider"
 }

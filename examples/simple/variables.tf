@@ -3,6 +3,7 @@
 ##################################################
 variable "location" {
   type        = string
+  default     = "uksouth"
   description = "Required Input - Location in azure where resources will be created. (ONLY accepted values [validation]: uksouth, westeurope, centralus, eastasia)"
 }
 
