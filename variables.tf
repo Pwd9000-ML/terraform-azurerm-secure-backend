@@ -59,6 +59,7 @@ variable "environment" {
 
 variable "kv_name" {
   type        = string
+  default     = "terraform-kv"
   description = "Required Input - The name for the backend key vault that will home terraform secrets e.g. terraform ARM_CLIENT_ID and ARM_CLIENT_SECRET. (Unique all lowercase)"
 }
 

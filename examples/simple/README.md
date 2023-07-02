@@ -41,9 +41,37 @@ After the backend infrastructure is setup from steps above (1-4):
 The backend state is now migrated to the backend storage account and container for the backend.  
 To cleanup the demo run: terraform destroy and delete the .terraform directory. (contains remote backend state config).  
 
-## Input variables
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
-- `location` - (Required) Specifies the location of resources (Validated: uksouth, westeurope, centralus, eastasia).
-- `region` - (Optional) Regional map based on location. (used for naming conventions in locals).
+No requirements.
 
-`Required input variables` can be changed or set in `terraform-demo.auto.tfvars`
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_backend"></a> [backend](#module\_backend) | github.com/Pwd9000-ML/terraform-azurerm-secure-backend | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [random_integer.sa_num](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_location"></a> [location](#input\_location) | Required Input - Location in azure where resources will be created. (ONLY accepted values [validation]: uksouth, westeurope, centralus, eastasia) | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | Optional Input - Regional map based on location. (used for naming conventions in locals) | `map(string)` | <pre>{<br>  "centralus": "NA",<br>  "eastasia": "APAC",<br>  "uksouth": "UK",<br>  "westeurope": "EMEA"<br>}</pre> | no |
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
