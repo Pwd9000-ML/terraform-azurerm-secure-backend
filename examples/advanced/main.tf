@@ -51,7 +51,8 @@ locals {
 # MODULES                                        #
 ##################################################
 module "backend" {
-  source = "github.com/Pwd9000-ML/terraform-azurerm-secure-backend"
+  source  = "Pwd9000-ML/secure-backend/azurerm"
+  version = ">= 1.3.0"
   providers = {
     azuread = azuread.az_ad_alias1
     azurerm = azurerm.az_rm_alias1

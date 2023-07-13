@@ -56,7 +56,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_backend"></a> [backend](#module\_backend) | github.com/Pwd9000-ML/terraform-azurerm-secure-backend | n/a |
+| <a name="module_backend"></a> [backend](#module\_backend) | Pwd9000-ML/secure-backend/azurerm | >= 1.3.0 |
 
 ## Resources
 
