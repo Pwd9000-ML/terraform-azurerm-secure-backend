@@ -12,7 +12,7 @@ on:
 
 jobs:
 # Dependabot will open a PR on terraform version changes, this 'dependabot' job is only used to test TF version changes by running a plan, apply and destroy in sequence.
-  dependabot-plan-apply-destroy:
+  dependabot_plan_apply_destroy:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -40,12 +40,36 @@ jobs:
           arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## (Required - Dependabot Secrets) ARM Tenant ID
           github_token: ${{ secrets.GITHUB_TOKEN }} ## (Required) Needed to comment output on PR's. ${{ secrets.GITHUB_TOKEN }} already has permissions.
 
-##### If dependency tests are successful merge the pull request #####
-  merge_pr:
-    needs: dependabot-plan-apply-destroy
+##### If dependency tests are successful update all readme documentation using terraform-docs #####
+  update_docs:
+    needs: dependabot_plan_apply_destroy
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+      repository-projects: write
+      contents: write
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Render terraform docs inside the README.md and push changes back to PR branch
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+            find-dir: .
+            output-file: README.md
+            output-method: inject
+            git-push: "true"
+
+##### If dependency tests are successful merge the pull request #####
+  merge_pr:
+    needs: update_docs
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      repository-projects: write
       contents: write
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
