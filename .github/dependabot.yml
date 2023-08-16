@@ -5,12 +5,10 @@
 
 version: 2
 updates:
-  - package-ecosystem: "terraform"
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "terraform" 
+    directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "20:00"
+      interval: "monthly"
       timezone: "Europe/London"
 
 
