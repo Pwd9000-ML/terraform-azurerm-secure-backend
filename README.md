@@ -52,14 +52,14 @@ The initial setup needs to be performed by an admin user who has sufficient perm
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6.5 |
 | <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | ~> 2.53.1 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.110.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.114.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_azuread"></a> [azuread](#provider\_azuread) | ~> 2.53.1 |
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.110.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.114.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | n/a |
 
 ## Modules
