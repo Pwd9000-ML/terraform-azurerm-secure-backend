@@ -50,16 +50,16 @@ The initial setup needs to be performed by an admin user who has sufficient perm
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6.5 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.5 |
 | <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | ~> 2.53.1 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.114.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_azuread"></a> [azuread](#provider\_azuread) | ~> 2.53.1 |
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.114.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.0.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | n/a |
 
 ## Modules
@@ -94,7 +94,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_backend_resource_group_name"></a> [backend\_resource\_group\_name](#input\_backend\_resource\_group\_name) | The name for the backend resource group that will home the backend storage account and backend key vault. (Default: BackendRG) | `string` | `"BackendRG"` | no |
 | <a name="input_backend_sa_access_tier"></a> [backend\_sa\_access\_tier](#input\_backend\_sa\_access\_tier) | The access tier of the backend storage account. (accepted values: Cool, Hot) | `string` | `"Hot"` | no |
-| <a name="input_backend_sa_account_https"></a> [backend\_sa\_account\_https](#input\_backend\_sa\_account\_https) | Boolean flag which forces HTTPS if enabled. (accepted values: true, false) | `bool` | `true` | no |
 | <a name="input_backend_sa_account_kind"></a> [backend\_sa\_account\_kind](#input\_backend\_sa\_account\_kind) | Defines the Kind of account. (accepted values: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2) | `string` | `"BlobStorage"` | no |
 | <a name="input_backend_sa_account_repl"></a> [backend\_sa\_account\_repl](#input\_backend\_sa\_account\_repl) | Defines the type of replication to use for this storage account. (accepted values: LRS, GRS, RAGRS, ZRS) | `string` | `"LRS"` | no |
 | <a name="input_backend_sa_account_tier"></a> [backend\_sa\_account\_tier](#input\_backend\_sa\_account\_tier) | Defines the Tier to use for this storage account. (accepted values: Standard, Premium. For FileStorage accounts only Premium is valid.) | `string` | `"Standard"` | no |
