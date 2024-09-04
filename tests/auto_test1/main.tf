@@ -10,7 +10,7 @@ provider "azurerm" {
       purge_soft_delete_on_destroy    = true
     }
   }
-  skip_provider_registration = true
+  resource_provider_registrations = "none"
 }
 
 ##################################################

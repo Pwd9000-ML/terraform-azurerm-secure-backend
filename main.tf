@@ -29,7 +29,6 @@ resource "azurerm_storage_account" "backend_sa" {
   account_kind              = var.backend_sa_account_kind
   account_tier              = var.backend_sa_account_tier
   account_replication_type  = var.backend_sa_account_repl
-  enable_https_traffic_only = var.backend_sa_account_https
   min_tls_version           = "TLS1_2"
   tags                      = merge(var.common_tags, { Purpose = "Backend-State-Storage-${var.environment}" })
 }
@@ -93,7 +92,7 @@ resource "azuread_application" "terraform_app" {
 }
 
 resource "azuread_service_principal" "terraform_app_sp" {
-  application_id = azuread_application.terraform_app.application_id
+  application_id = azuread_application.terraform_app.client_id
 }
 
 resource "azuread_service_principal_password" "terraform_app_sp_pwd" {
@@ -128,7 +127,7 @@ resource "azurerm_role_assignment" "primary_sa_container_ra" {
 #tfsec:ignore:azure-keyvault-ensure-secret-expiry
 resource "azurerm_key_vault_secret" "terraform_client_id" {
   name         = "tf-arm-client-id"
-  value        = azuread_application.terraform_app.application_id
+  value        = azuread_application.terraform_app.client_id
   key_vault_id = azurerm_key_vault.backend_kv.id
   tags         = merge(var.common_tags, { Purpose = "Terraform-Service-Principal-Application-ID" })
   content_type = "ARM_CLIENT_ID"
@@ -165,7 +164,7 @@ Add-content -value 'Primary Remote State Container Name = "${azurerm_storage_con
 Add-content -value 'Backend Key Vault Name = "${azurerm_key_vault.backend_kv.name}"' -Path "setup.log"
 Add-content -value 'Backend Key Vault ID = "${azurerm_key_vault.backend_kv.id}"' -Path "setup.log"
 Add-content -value 'Primary Resource Group Name = "${azurerm_resource_group.primary_rg.name}"' -Path "setup.log"
-Add-content -value 'Terraform Service Principal Application ID = "${azuread_application.terraform_app.application_id}"' -Path "setup.log"
+Add-content -value 'Terraform Service Principal Application ID = "${azuread_application.terraform_app.client_id}"' -Path "setup.log"
 Add-content -value 'Terraform Service Principal Object ID = "${azuread_application.terraform_app.id}"' -Path "setup.log"
 Add-content -value 'Terraform Contributor Role Definition = "${azurerm_role_definition.terraform_role.name}"' -Path "setup.log"
 Add-content -value 'Terraform app and role assigned to: "${azurerm_resource_group.primary_rg.name}"' -Path "setup.log"

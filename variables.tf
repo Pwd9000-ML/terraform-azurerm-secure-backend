@@ -37,12 +37,6 @@ variable "backend_sa_account_repl" {
   description = "Defines the type of replication to use for this storage account. (accepted values: LRS, GRS, RAGRS, ZRS)"
 }
 
-variable "backend_sa_account_https" {
-  type        = bool
-  default     = true
-  description = "Boolean flag which forces HTTPS if enabled. (accepted values: true, false)"
-}
-
 variable "common_tags" {
   type = map(string)
   default = {
