@@ -22,15 +22,15 @@ resource "azurerm_resource_group" "primary_rg" {
 
 #tfsec:ignore:azure-storage-queue-services-logging-enabled
 resource "azurerm_storage_account" "backend_sa" {
-  name                      = var.backend_storage_account_name
-  resource_group_name       = azurerm_resource_group.backend_rg.name
-  location                  = azurerm_resource_group.backend_rg.location
-  access_tier               = var.backend_sa_access_tier
-  account_kind              = var.backend_sa_account_kind
-  account_tier              = var.backend_sa_account_tier
-  account_replication_type  = var.backend_sa_account_repl
-  min_tls_version           = "TLS1_2"
-  tags                      = merge(var.common_tags, { Purpose = "Backend-State-Storage-${var.environment}" })
+  name                     = var.backend_storage_account_name
+  resource_group_name      = azurerm_resource_group.backend_rg.name
+  location                 = azurerm_resource_group.backend_rg.location
+  access_tier              = var.backend_sa_access_tier
+  account_kind             = var.backend_sa_account_kind
+  account_tier             = var.backend_sa_account_tier
+  account_replication_type = var.backend_sa_account_repl
+  min_tls_version          = "TLS1_2"
+  tags                     = merge(var.common_tags, { Purpose = "Backend-State-Storage-${var.environment}" })
 }
 
 resource "azurerm_storage_container" "backend_sa_container" {
