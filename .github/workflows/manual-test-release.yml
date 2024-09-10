@@ -52,7 +52,7 @@ jobs:
         run: git pull origin master
 
       - name: Render terraform docs inside the README.md and push changes back to PR branch
-        uses: terraform-docs/gh-actions@v1.2.0
+        uses: terraform-docs/gh-actions@v1.2.2
         with:
             find-dir: .
             output-file: README.md
