@@ -18,6 +18,6 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-      day: "tuesday"
+      day: "thursday"
       time: "05:00"
       timezone: "Europe/London"
