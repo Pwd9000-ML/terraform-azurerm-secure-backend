@@ -35,12 +35,12 @@ resource "azurerm_storage_account" "backend_sa" {
 
 resource "azurerm_storage_container" "backend_sa_container" {
   name                 = "backend-remote-state"
-  storage_account_name = azurerm_storage_account.backend_sa.name
+  storage_account_id = azurerm_storage_account.backend_sa.id
 }
 
 resource "azurerm_storage_container" "primary_sa_container" {
   name                 = "primary-remote-state"
-  storage_account_name = azurerm_storage_account.backend_sa.name
+  storage_account_id = azurerm_storage_account.backend_sa.id
 }
 
 resource "azurerm_key_vault" "backend_kv" {
@@ -58,7 +58,7 @@ resource "azurerm_key_vault" "backend_kv" {
 
   access_policy {
     tenant_id       = data.azurerm_subscription.current.tenant_id
-    object_id       = azuread_service_principal.terraform_app_sp.id
+    object_id       = azuread_service_principal.terraform_app_sp.object_id
     key_permissions = []
     secret_permissions = [
       "Get",
@@ -92,7 +92,7 @@ resource "azuread_application" "terraform_app" {
 }
 
 resource "azuread_service_principal" "terraform_app_sp" {
-  application_id = azuread_application.terraform_app.client_id
+  client_id = azuread_application.terraform_app.client_id
 }
 
 resource "azuread_service_principal_password" "terraform_app_sp_pwd" {
@@ -115,13 +115,13 @@ resource "azurerm_role_definition" "terraform_role" {
 resource "azurerm_role_assignment" "primary_rg_ra" {
   scope              = azurerm_resource_group.primary_rg.id
   role_definition_id = azurerm_role_definition.terraform_role.role_definition_resource_id
-  principal_id       = azuread_service_principal.terraform_app_sp.id
+  principal_id       = azuread_service_principal.terraform_app_sp.object_id
 }
 
 resource "azurerm_role_assignment" "primary_sa_container_ra" {
   scope                = "${azurerm_resource_group.backend_rg.id}/providers/Microsoft.Storage/storageAccounts/${azurerm_storage_account.backend_sa.name}/blobServices/default/containers/${azurerm_storage_container.primary_sa_container.name}"
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azuread_service_principal.terraform_app_sp.id
+  principal_id         = azuread_service_principal.terraform_app_sp.object_id
 }
 
 #tfsec:ignore:azure-keyvault-ensure-secret-expiry
