@@ -58,7 +58,7 @@ resource "azurerm_key_vault" "backend_kv" {
 
   access_policy {
     tenant_id       = data.azurerm_subscription.current.tenant_id
-    object_id       = azuread_service_principal.terraform_app_sp.id
+    object_id       = azuread_service_principal.terraform_app_sp.object_id
     key_permissions = []
     secret_permissions = [
       "Get",
@@ -115,13 +115,13 @@ resource "azurerm_role_definition" "terraform_role" {
 resource "azurerm_role_assignment" "primary_rg_ra" {
   scope              = azurerm_resource_group.primary_rg.id
   role_definition_id = azurerm_role_definition.terraform_role.role_definition_resource_id
-  principal_id       = azuread_service_principal.terraform_app_sp.id
+  principal_id       = azuread_service_principal.terraform_app_sp.object_id
 }
 
 resource "azurerm_role_assignment" "primary_sa_container_ra" {
   scope                = "${azurerm_resource_group.backend_rg.id}/providers/Microsoft.Storage/storageAccounts/${azurerm_storage_account.backend_sa.name}/blobServices/default/containers/${azurerm_storage_container.primary_sa_container.name}"
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azuread_service_principal.terraform_app_sp.id
+  principal_id         = azuread_service_principal.terraform_app_sp.object_id
 }
 
 #tfsec:ignore:azure-keyvault-ensure-secret-expiry
