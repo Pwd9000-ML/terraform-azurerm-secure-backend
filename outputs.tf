@@ -22,7 +22,7 @@ output "backend_key_vault_id" {
 }
 
 output "terraform_application_id" {
-  value       = azuread_application.terraform_app.application_id
+  value       = azuread_application.terraform_app.client_id
   description = "The CLIENT ID for the terraform application service principal."
 }
 

@@ -35,12 +35,12 @@ resource "azurerm_storage_account" "backend_sa" {
 
 resource "azurerm_storage_container" "backend_sa_container" {
   name                 = "backend-remote-state"
-  storage_account_name = azurerm_storage_account.backend_sa.name
+  storage_account_id = azurerm_storage_account.backend_sa.id
 }
 
 resource "azurerm_storage_container" "primary_sa_container" {
   name                 = "primary-remote-state"
-  storage_account_name = azurerm_storage_account.backend_sa.name
+  storage_account_id = azurerm_storage_account.backend_sa.id
 }
 
 resource "azurerm_key_vault" "backend_kv" {
@@ -92,7 +92,7 @@ resource "azuread_application" "terraform_app" {
 }
 
 resource "azuread_service_principal" "terraform_app_sp" {
-  application_id = azuread_application.terraform_app.client_id
+  client_id = azuread_application.terraform_app.client_id
 }
 
 resource "azuread_service_principal_password" "terraform_app_sp_pwd" {
