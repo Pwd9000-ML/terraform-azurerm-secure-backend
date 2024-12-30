@@ -46,4 +46,5 @@ Anyone who utilise the Primary resource group for terraform deployments, using t
 The initial setup needs to be performed by an admin user who has sufficient permissions to Azure via CLI. (See examples readme for more info)
 
 <!-- BEGIN_TF_DOCS -->
+
 <!-- END_TF_DOCS -->
