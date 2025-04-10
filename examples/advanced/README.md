@@ -76,13 +76,13 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_BillingCode"></a> [BillingCode](#input\_BillingCode) | Billing code map based on environment. (used for common tags defined in locals) | `map(string)` | <pre>{<br>  "Development": "100",<br>  "POC": "103",<br>  "Production": "105",<br>  "QA": "102",<br>  "Testing": "104",<br>  "UAT": "101"<br>}</pre> | no |
-| <a name="input_CostCenter"></a> [CostCenter](#input\_CostCenter) | Cost center map based on line of business. (used for naming conventions defined in locals) | `map(string)` | <pre>{<br>  "Development": "DEV",<br>  "IT": "IT",<br>  "Research": "RND"<br>}</pre> | no |
+| <a name="input_BillingCode"></a> [BillingCode](#input\_BillingCode) | Billing code map based on environment. (used for common tags defined in locals) | `map(string)` | <pre>{<br/>  "Development": "100",<br/>  "POC": "103",<br/>  "Production": "105",<br/>  "QA": "102",<br/>  "Testing": "104",<br/>  "UAT": "101"<br/>}</pre> | no |
+| <a name="input_CostCenter"></a> [CostCenter](#input\_CostCenter) | Cost center map based on line of business. (used for naming conventions defined in locals) | `map(string)` | <pre>{<br/>  "Development": "DEV",<br/>  "IT": "IT",<br/>  "Research": "RND"<br/>}</pre> | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Value to describe the environment. Primarily used for tagging and naming resources. (used for naming conventions defined in locals). Examples: Development, UAT, QA, POC, Testing, Production. | `string` | `"Development"` | no |
 | <a name="input_lob"></a> [lob](#input\_lob) | Describes line of business. (used for naming conventions defined in locals; accepted values: IT, Development, Research) | `string` | `"IT"` | no |
 | <a name="input_location"></a> [location](#input\_location) | Location in azure where resources will be created. (ONLY accepted values [validation]: uksouth, westeurope, centralus, eastasia) | `string` | `"uksouth"` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Used for naming conventions defined in locals | `string` | `"Demo"` | no |
-| <a name="input_region"></a> [region](#input\_region) | Regional map based on location. (used for naming conventions defined in locals) | `map(string)` | <pre>{<br>  "centralus": "NA",<br>  "eastasia": "APAC",<br>  "uksouth": "UK",<br>  "westeurope": "EMEA"<br>}</pre> | no |
+| <a name="input_region"></a> [region](#input\_region) | Regional map based on location. (used for naming conventions defined in locals) | `map(string)` | <pre>{<br/>  "centralus": "NA",<br/>  "eastasia": "APAC",<br/>  "uksouth": "UK",<br/>  "westeurope": "EMEA"<br/>}</pre> | no |
 | <a name="input_subscriptionid"></a> [subscriptionid](#input\_subscriptionid) | Subscription ID used for azurerm provider | `string` | `null` | no |
 | <a name="input_tenantid"></a> [tenantid](#input\_tenantid) | Tenant ID of azure AD tenant used for azuread provider | `string` | `null` | no |
 
